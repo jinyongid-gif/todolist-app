@@ -215,10 +215,14 @@ erDiagram
 |-----|------|
 | **프론트엔드** | React 19 + TypeScript |
 | **상태 관리** | Zustand (클라이언트), TanStack Query v5 (서버) |
-| **백엔드** | Node.js + Express |
+| **백엔드** | Node.js + Express (JavaScript/CommonJS) |
 | **DB 클라이언트** | pg (node-postgres) |
 | **데이터베이스** | PostgreSQL 17 |
 | **인증** | JWT (jsonwebtoken) |
+| **HTTP 로깅** | morgan |
+| **애플리케이션 로깅** | winston |
+| **API 문서** | swagger-ui-express (`/api-docs`) |
+| **백엔드 테스트** | Jest + supertest |
 
 ---
 
@@ -227,3 +231,4 @@ erDiagram
 | 버전 | 날짜 | 변경자 | 변경 내용 |
 |------|------|--------|-----------|
 | 1.0 | 2026-05-13 | Documentation Engineer | 최초 작성 - 4개 다이어그램 포함 |
+| 1.1 | 2026-05-14 | Backend Developer | 기술 스택 요약 표에 morgan·winston·swagger-ui-express·Jest+supertest 추가 |

@@ -1064,9 +1064,10 @@ frontend/
 
 ```env
 # Database
-DATABASE_URL=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/todolist_dev
+TEST_DATABASE_URL=postgresql://postgres:postgres@localhost:5432/todolist_test
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
 
 # JWT
 JWT_SECRET=
@@ -1739,21 +1740,22 @@ export function formatDate(date: string): string {
 backend/
 ├── src/
 │   ├── config/                   # 환경 변수 로드 및 설정
-│   │   ├── db.js                 # pg.Pool 인스턴스
-│   │   └── env.js                # 환경 변수 파싱
+│   │   ├── db.js                 # pg.Pool 인스턴스 (DATE 타입 파서 포함)
+│   │   └── env.js                # 환경 변수 파싱 및 검증
 │   │
 │   ├── middleware/               # Express 미들웨어
 │   │   ├── auth.middleware.js    # JWT 검증
 │   │   ├── error.middleware.js   # 전역 에러 핸들러
-│   │   └── validation.middleware.js
+│   │   └── validation.middleware.js  # 필수 필드 검증
 │   │
 │   ├── modules/                  # 도메인별 모듈 (라우터/컨트롤러/서비스/레포지토리)
 │   │   ├── auth/
 │   │   │   ├── auth.router.js
 │   │   │   ├── auth.controller.js
-│   │   │   └── auth.service.js
+│   │   │   ├── auth.service.js
+│   │   │   └── auth.repository.js    # 사용자 조회·생성 쿼리
 │   │   │
-│   │   ├── users/
+│   │   ├── users/                    # Post-MVP (프로필 수정·탈퇴)
 │   │   │   ├── users.router.js
 │   │   │   ├── users.controller.js
 │   │   │   ├── users.service.js
@@ -1772,30 +1774,41 @@ backend/
 │   │       └── categories.repository.js
 │   │
 │   ├── utils/                    # 순수 유틸리티 함수
-│   │   ├── jwt.utils.js
-│   │   └── password.utils.js
+│   │   ├── app-error.js          # 비즈니스 에러 클래스 (AppError)
+│   │   ├── jwt.utils.js          # signToken / verifyToken
+│   │   ├── logger.js             # Winston 로거 인스턴스
+│   │   └── password.utils.js     # hashPassword / comparePassword
 │   │
-│   ├── app.js                    # Express 앱 인스턴스
+│   ├── app.js                    # Express 앱 인스턴스 (Swagger UI 포함)
 │   └── server.js                 # 서버 실행
 │
 ├── tests/
-│   ├── unit/                     # 단위 테스트
-│   │   └── services/
-│   └── integration/              # 통합 테스트
-│       └── api.e2e.test.js
-│
-├── db/
-│   ├── migrations/               # DDL SQL 파일
-│   │   ├── 001-create-users.sql
-│   │   ├── 002-create-categories.sql
-│   │   └── 003-create-todos.sql
-│   └── seeds/                    # 시드 데이터
-│       └── seed-categories.sql
+│   ├── unit/                     # 단위 테스트 (DB mock 처리)
+│   │   ├── config/
+│   │   │   ├── db.test.js
+│   │   │   └── env.test.js
+│   │   ├── middleware/
+│   │   │   ├── auth.test.js
+│   │   │   ├── error.test.js
+│   │   │   └── validation.test.js
+│   │   └── modules/
+│   │       ├── auth/auth.service.test.js
+│   │       ├── categories/categories.service.test.js
+│   │       └── todos/todos.service.test.js
+│   └── integration/              # 통합 테스트 (todolist_test DB 사용)
+│       ├── auth.test.js
+│       ├── auth-guard.test.js    # 인증 보안 시나리오
+│       ├── categories.test.js
+│       ├── db.test.js
+│       ├── health.test.js
+│       └── todos.test.js
 │
 ├── .env.example
 ├── package.json
 └── README.md
 ```
+
+> **참고**: 데이터베이스 마이그레이션 파일은 프로젝트 루트의 `database/migrations/`에 위치합니다.
 
 ### 디렉토리별 역할 및 규칙
 
@@ -2180,6 +2193,7 @@ todolist-app/
 | 1.0 | 2026-05-13 | Architecture Engineer | 최초 작성 | 프로젝트 아키텍처 설계 원칙 문서화 |
 | 1.1 | 2026-05-13 | Architecture Engineer | JWT 토큰 저장 방식 변경: localStorage → Zustand 메모리. useAuthStore에 token/setToken 필드 추가, API 함수 내 getToken() → useAuthStore.getState().token으로 교체 | XSS 취약점 노출 최소화 및 보안 기본값 원칙 적용 |
 | 1.2 | 2026-05-13 | Architecture Engineer | 백엔드 TypeScript 제거: JavaScript(CommonJS)로 변경. 파일 확장자 .ts→.js, tsconfig.json 제거, types/ 디렉토리 제거, 코드 예시 JavaScript로 변환 | 백엔드 개발에서 TypeScript 미사용 결정 |
+| 1.3 | 2026-05-14 | Backend Developer | §7 백엔드 디렉토리 구조 실제 구현 기준으로 갱신: utils/ 에 app-error.js·logger.js 추가, auth 모듈에 auth.repository.js 추가, tests/ 구조를 unit/(config·middleware·modules)·integration/ 실제 파일 목록으로 교체. §5.1 .env.example 에 TEST_DATABASE_URL·POSTGRES_USER·POSTGRES_PASSWORD 추가 | BE-04~BE-07 구현 완료 후 실제 코드와 문서 불일치 수정 |
 
 ---
 

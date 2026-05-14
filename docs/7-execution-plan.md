@@ -278,19 +278,19 @@
 **목표**: `frontend/` 디렉토리에 React 19 + TypeScript + Vite 프로젝트를 초기화하고 `4-project-principles.md`에 정의된 디렉토리 구조를 생성한다.
 
 #### 완료 조건
-- [ ] `frontend/package.json`에 아래 의존성이 선언된다
+- [x] `frontend/package.json`에 아래 의존성이 선언된다
   - 런타임: `react@19`, `react-dom@19`, `react-router-dom`, `zustand`, `@tanstack/react-query`
   - 개발: `typescript`, `vite`, `@types/react`, `@types/react-dom`
-- [ ] `frontend/tsconfig.json`에 `strict: true`가 활성화된다
-- [ ] 아래 디렉토리 구조가 생성된다
+- [x] `frontend/tsconfig.json`에 `strict: true`가 활성화된다
+- [x] 아래 디렉토리 구조가 생성된다
   ```
   frontend/src/
     api/ · components/(common·layout) · features/(auth·todos·categories)
     pages/ · stores/ · types/ · utils/ · constants/ · router/
   ```
-- [ ] `npm run dev` 명령으로 Vite 개발 서버가 기동된다 (기본 포트 5173)
-- [ ] `frontend/.env.example`에 `VITE_API_BASE_URL` 항목이 포함된다
-- [ ] `vite.config.ts`에 백엔드 프록시 설정(`/api → http://localhost:3000`)이 포함된다
+- [x] `npm run dev` 명령으로 Vite 개발 서버가 기동된다 (기본 포트 5173)
+- [x] `frontend/.env.example`에 `VITE_API_BASE_URL` 항목이 포함된다
+- [x] `vite.config.ts`에 백엔드 프록시 설정(`/api → http://localhost:3000`)이 포함된다
 
 #### 의존성
 - 없음 (DB-01과 병렬 착수 가능)
@@ -304,20 +304,20 @@
 #### 완료 조건
 
 **라우터** (`router/AppRouter.tsx`):
-- [ ] `/login` → `LoginPage`, `/register` → `RegisterPage`, `/todos` → `TodoListPage`, `/todos/create` → `TodoCreatePage`, `/todos/:id/edit` → `TodoEditPage` 라우팅이 설정된다
-- [ ] 인증되지 않은 사용자가 `/todos`에 접근 시 `/login`으로 리다이렉트되는 `PrivateRoute`가 구현된다
-- [ ] 인증된 사용자가 `/login`, `/register`에 접근 시 `/todos`로 리다이렉트된다
+- [x] `/login` → `LoginPage`, `/register` → `RegisterPage`, `/todos` → `TodoListPage`, `/todos/create` → `TodoCreatePage`, `/todos/:id/edit` → `TodoEditPage` 라우팅이 설정된다
+- [x] 인증되지 않은 사용자가 `/todos`에 접근 시 `/login`으로 리다이렉트되는 `PrivateRoute`가 구현된다
+- [x] 인증된 사용자가 `/login`, `/register`에 접근 시 `/todos`로 리다이렉트된다
 
 **인증 스토어** (`stores/useAuthStore.ts`):
-- [ ] `{ user, token, isLoading }` 상태와 `setUser()`, `setToken()`, `setLoading()`, `logout()` 액션이 구현된다
-- [ ] `token`은 메모리에만 저장된다 (localStorage 사용 금지)
-- [ ] `logout()` 호출 시 `user`와 `token`이 `null`로 초기화된다
-- [ ] 컴포넌트 외부에서 `useAuthStore.getState().token`으로 토큰에 접근 가능하다
+- [x] `{ user, token, isLoading }` 상태와 `setUser()`, `setToken()`, `setLoading()`, `logout()` 액션이 구현된다
+- [x] `token`은 메모리에만 저장된다 (localStorage 사용 금지)
+- [x] `logout()` 호출 시 `user`와 `token`이 `null`로 초기화된다
+- [x] 컴포넌트 외부에서 `useAuthStore.getState().token`으로 토큰에 접근 가능하다
 
 **TanStack Query** (`main.tsx`):
-- [ ] `QueryClient`가 `staleTime: 1000 * 60` (1분)으로 설정된다
-- [ ] `QueryClientProvider`가 앱 최상위에 래핑된다
-- [ ] 개발 환경에서 `ReactQueryDevtools`가 활성화된다
+- [x] `QueryClient`가 `staleTime: 1000 * 60` (1분)으로 설정된다
+- [x] `QueryClientProvider`가 앱 최상위에 래핑된다
+- [x] 개발 환경에서 `ReactQueryDevtools`가 활성화된다
 
 #### 의존성
 - [x] FE-01 완료 후 착수
@@ -331,26 +331,26 @@
 #### 완료 조건
 
 **API 클라이언트** (`api/auth.api.ts`):
-- [ ] `register(email, password, name)` 함수가 `POST /api/auth/register`를 호출한다
-- [ ] `login(email, password)` 함수가 `POST /api/auth/login`을 호출하고 `{ access_token, user }`를 반환한다
-- [ ] API 에러 시 서버 응답 메시지를 포함한 에러를 throw한다
+- [x] `register(email, password, name)` 함수가 `POST /api/auth/register`를 호출한다
+- [x] `login(email, password)` 함수가 `POST /api/auth/login`을 호출하고 `{ access_token, user }`를 반환한다
+- [x] API 에러 시 서버 응답 메시지를 포함한 에러를 throw한다
 
 **회원가입 화면** (`pages/RegisterPage.tsx`):
-- [ ] 이메일·비밀번호·이름 입력 필드가 존재한다
-- [ ] 필수 필드 미입력 시 각 필드 하단에 에러 메시지가 표시된다
-- [ ] 회원가입 성공 시 `/login`으로 이동한다
-- [ ] 이미 사용 중인 이메일 오류 시 `409` 응답 메시지가 표시된다
-- [ ] 로그인 화면으로 이동하는 링크가 있다
+- [x] 이메일·비밀번호·이름 입력 필드가 존재한다
+- [x] 필수 필드 미입력 시 각 필드 하단에 에러 메시지가 표시된다
+- [x] 회원가입 성공 시 `/login`으로 이동한다
+- [x] 이미 사용 중인 이메일 오류 시 `409` 응답 메시지가 표시된다
+- [x] 로그인 화면으로 이동하는 링크가 있다
 
 **로그인 화면** (`pages/LoginPage.tsx`):
-- [ ] 이메일·비밀번호 입력 필드가 존재한다
-- [ ] 로그인 성공 시 `useAuthStore.setToken()` 및 `setUser()`를 호출한 후 `/todos`로 이동한다
-- [ ] 인증 실패 시 `401` 응답 메시지가 표시된다
-- [ ] 회원가입 화면으로 이동하는 링크가 있다
+- [x] 이메일·비밀번호 입력 필드가 존재한다
+- [x] 로그인 성공 시 `useAuthStore.setToken()` 및 `setUser()`를 호출한 후 `/todos`로 이동한다
+- [x] 인증 실패 시 `401` 응답 메시지가 표시된다
+- [x] 회원가입 화면으로 이동하는 링크가 있다
 
 **공통**:
-- [ ] 모바일(375px) 기준에서 레이아웃이 깨지지 않는다
-- [ ] API 호출 중 로딩 상태(`isLoading`)가 버튼에 시각적으로 표시된다
+- [x] 모바일(375px) 기준에서 레이아웃이 깨지지 않는다
+- [x] API 호출 중 로딩 상태(`isLoading`)가 버튼에 시각적으로 표시된다
 
 #### 의존성
 - [x] FE-02 완료 후 착수
@@ -365,31 +365,31 @@
 #### 완료 조건
 
 **API 클라이언트** (`api/todos.api.ts`):
-- [ ] `getTodos(params)` 함수가 `GET /api/todos`를 호출하며 필터 파라미터를 querystring으로 전달한다
-- [ ] `completeTodo(id)` 함수가 `PATCH /api/todos/:id/complete`를 호출한다
-- [ ] 모든 API 함수는 `useAuthStore.getState().token`으로 `Authorization: Bearer` 헤더를 설정한다
+- [x] `getTodos(params)` 함수가 `GET /api/todos`를 호출하며 필터 파라미터를 querystring으로 전달한다
+- [x] `completeTodo(id)` 함수가 `PATCH /api/todos/:id/complete`를 호출한다
+- [x] 모든 API 함수는 `useAuthStore.getState().token`으로 `Authorization: Bearer` 헤더를 설정한다
 
 **훅** (`features/todos/hooks/`):
-- [ ] `useTodos(filters)`: `useQuery`를 사용하며, 필터 파라미터가 변경되면 자동으로 재요청된다
-- [ ] `useTodoMutations()`: `completeTodo`를 `useMutation`으로 구현하며, 성공 시 `queryClient.invalidateQueries(['todos'])`를 호출한다
+- [x] `useTodos(filters)`: `useQuery`를 사용하며, 필터 파라미터가 변경되면 자동으로 재요청된다
+- [x] `useTodoMutations()`: `completeTodo`를 `useMutation`으로 구현하며, 성공 시 `queryClient.invalidateQueries(['todos'])`를 호출한다
 
 **할일 목록 화면** (`pages/TodoListPage.tsx`):
-- [ ] 필터 패널에 카테고리·완료여부·기간초과 필터가 존재한다
-- [ ] 필터 변경 시 목록이 즉시 갱신된다
-- [ ] 각 할일 카드에 제목·카테고리 태그·종료예정일이 표시된다
-- [ ] 기간 초과 할일의 종료예정일은 붉은색으로 강조 표시된다
-- [ ] 완료 체크박스 클릭 시 `completeTodo` API가 호출되고 목록이 갱신된다
-- [ ] 할일이 없을 경우 빈 상태 메시지가 표시된다
-- [ ] 헤더에 로그인 사용자 이름과 로그아웃 버튼이 표시된다
-- [ ] 로그아웃 클릭 시 `useAuthStore.logout()`이 호출되고 `/login`으로 이동한다
-- [ ] 할일 등록 버튼 클릭 시 `/todos/create`로 이동한다
+- [x] 필터 패널에 카테고리·완료여부·기간초과 필터가 존재한다
+- [x] 필터 변경 시 목록이 즉시 갱신된다
+- [x] 각 할일 카드에 제목·카테고리 태그·종료예정일이 표시된다
+- [x] 기간 초과 할일의 종료예정일은 붉은색으로 강조 표시된다
+- [x] 완료 체크박스 클릭 시 `completeTodo` API가 호출되고 목록이 갱신된다
+- [x] 할일이 없을 경우 빈 상태 메시지가 표시된다
+- [x] 헤더에 로그인 사용자 이름과 로그아웃 버튼이 표시된다
+- [x] 로그아웃 클릭 시 `useAuthStore.logout()`이 호출되고 `/login`으로 이동한다
+- [x] 할일 등록 버튼 클릭 시 `/todos/create`로 이동한다
 
 **카테고리 API** (`api/categories.api.ts`):
-- [ ] `getCategories()` 함수가 `GET /api/categories`를 호출한다
-- [ ] `useCategories()` 훅이 `useQuery`로 구현된다
+- [x] `getCategories()` 함수가 `GET /api/categories`를 호출한다
+- [x] `useCategories()` 훅이 `useQuery`로 구현된다
 
 **공통**:
-- [ ] 모바일(375px) · 데스크톱(1280px) 레이아웃이 깨지지 않는다
+- [x] 모바일(375px) · 데스크톱(1280px) 레이아웃이 깨지지 않는다
 
 #### 의존성
 - [x] FE-02 완료 후 착수
@@ -404,32 +404,32 @@
 #### 완료 조건
 
 **API 클라이언트** (`api/todos.api.ts` 추가):
-- [ ] `createTodo(data)` 함수가 `POST /api/todos`를 호출한다
-- [ ] `updateTodo(id, data)` 함수가 `PUT /api/todos/:id`를 호출한다
-- [ ] `deleteTodo(id)` 함수가 `DELETE /api/todos/:id`를 호출한다
-- [ ] `getTodoById(id)` 함수가 `GET /api/todos/:id`를 호출한다
+- [x] `createTodo(data)` 함수가 `POST /api/todos`를 호출한다
+- [x] `updateTodo(id, data)` 함수가 `PUT /api/todos/:id`를 호출한다
+- [x] `deleteTodo(id)` 함수가 `DELETE /api/todos/:id`를 호출한다
+- [x] `getTodoById(id)` 함수가 `GET /api/todos/:id`를 호출한다
 
 **훅** (`features/todos/hooks/useTodoMutations.ts` 추가):
-- [ ] `createTodo`: 성공 시 `/todos`로 이동하고 `todos` 쿼리를 무효화한다
-- [ ] `updateTodo`: 성공 시 `/todos`로 이동하고 `todos` 쿼리를 무효화한다
-- [ ] `deleteTodo`: 성공 시 `/todos`로 이동하고 `todos` 쿼리를 무효화한다
+- [x] `createTodo`: 성공 시 `/todos`로 이동하고 `todos` 쿼리를 무효화한다
+- [x] `updateTodo`: 성공 시 `/todos`로 이동하고 `todos` 쿼리를 무효화한다
+- [x] `deleteTodo`: 성공 시 `/todos`로 이동하고 `todos` 쿼리를 무효화한다
 
 **할일 등록 화면** (`pages/TodoCreatePage.tsx`):
-- [ ] 제목(필수)·설명(선택)·종료예정일(선택)·카테고리(필수) 입력 필드가 존재한다
-- [ ] 카테고리 선택 드롭다운에 기본 카테고리 목록이 표시된다
-- [ ] 제목 미입력 시 에러 메시지가 표시된다
-- [ ] 저장 성공 시 할일 목록 화면으로 이동한다
-- [ ] 취소 버튼 클릭 시 할일 목록 화면으로 이동한다
+- [x] 제목(필수)·설명(선택)·종료예정일(선택)·카테고리(필수) 입력 필드가 존재한다
+- [x] 카테고리 선택 드롭다운에 기본 카테고리 목록이 표시된다
+- [x] 제목 미입력 시 에러 메시지가 표시된다
+- [x] 저장 성공 시 할일 목록 화면으로 이동한다
+- [x] 취소 버튼 클릭 시 할일 목록 화면으로 이동한다
 
 **할일 수정 화면** (`pages/TodoEditPage.tsx`):
-- [ ] 기존 할일 데이터가 폼에 미리 채워진다
-- [ ] 수정 후 저장 성공 시 할일 목록 화면으로 이동한다
-- [ ] 삭제 버튼 클릭 시 확인 다이얼로그 후 삭제 API가 호출된다
-- [ ] 삭제 성공 시 할일 목록 화면으로 이동한다
-- [ ] 존재하지 않는 할일 ID 접근 시 에러 메시지를 표시하거나 목록으로 리다이렉트한다
+- [x] 기존 할일 데이터가 폼에 미리 채워진다
+- [x] 수정 후 저장 성공 시 할일 목록 화면으로 이동한다
+- [x] 삭제 버튼 클릭 시 확인 다이얼로그 후 삭제 API가 호출된다
+- [x] 삭제 성공 시 할일 목록 화면으로 이동한다
+- [x] 존재하지 않는 할일 ID 접근 시 에러 메시지를 표시하거나 목록으로 리다이렉트한다
 
 **공통**:
-- [ ] 모바일(375px) · 데스크톱(1280px) 레이아웃이 깨지지 않는다
+- [x] 모바일(375px) · 데스크톱(1280px) 레이아웃이 깨지지 않는다
 
 #### 의존성
 - [x] FE-02·FE-04 완료 후 착수
@@ -444,25 +444,25 @@
 #### 완료 조건
 
 **Button** (`components/common/Button.tsx`):
-- [ ] `variant` (primary·secondary·danger)와 `isLoading` prop을 지원한다
-- [ ] `isLoading`이 `true`일 때 버튼이 비활성화되고 로딩 표시가 나타난다
+- [x] `variant` (primary·secondary·danger)와 `isLoading` prop을 지원한다
+- [x] `isLoading`이 `true`일 때 버튼이 비활성화되고 로딩 표시가 나타난다
 
 **Input** (`components/common/Input.tsx`):
-- [ ] `label`, `error`, `required` prop을 지원한다
-- [ ] `error`가 있으면 인풋 테두리가 붉게 표시되고 에러 메시지가 하단에 표시된다
+- [x] `label`, `error`, `required` prop을 지원한다
+- [x] `error`가 있으면 인풋 테두리가 붉게 표시되고 에러 메시지가 하단에 표시된다
 
 **Select** (`components/common/Select.tsx`):
-- [ ] `options: { value, label }[]` prop으로 옵션 목록을 렌더링한다
-- [ ] `error` prop을 지원한다
+- [x] `options: { value, label }[]` prop으로 옵션 목록을 렌더링한다
+- [x] `error` prop을 지원한다
 
 **Modal** (`components/common/Modal.tsx`):
-- [ ] `isOpen`, `onClose`, `title`, `children` prop을 지원한다
-- [ ] 배경 클릭 시 `onClose`가 호출된다
-- [ ] ESC 키 입력 시 `onClose`가 호출된다
+- [x] `isOpen`, `onClose`, `title`, `children` prop을 지원한다
+- [x] 배경 클릭 시 `onClose`가 호출된다
+- [x] ESC 키 입력 시 `onClose`가 호출된다
 
 **AppLayout** (`components/layout/AppLayout.tsx`):
-- [ ] 모바일·데스크톱 레이아웃을 모두 지원하는 래퍼 컴포넌트이다
-- [ ] `Header.tsx`가 포함된다
+- [x] 모바일·데스크톱 레이아웃을 모두 지원하는 래퍼 컴포넌트이다
+- [x] `Header.tsx`가 포함된다
 
 #### 의존성
 - [x] FE-01 완료 후 착수 (FE-03·04·05와 병렬 진행 가능)
@@ -476,28 +476,28 @@
 #### 완료 조건
 
 **회원가입·로그인 흐름**:
-- [ ] SCR-01에서 회원가입 후 SCR-02 로그인, SCR-03 할일 목록 진입이 연속으로 성공한다
-- [ ] 잘못된 비밀번호 입력 시 에러 메시지가 표시된다
-- [ ] 페이지 새로고침 시 로그인 화면으로 이동한다 (Zustand 메모리 초기화)
+- [x] SCR-01에서 회원가입 후 SCR-02 로그인, SCR-03 할일 목록 진입이 연속으로 성공한다
+- [x] 잘못된 비밀번호 입력 시 에러 메시지가 표시된다
+- [x] 페이지 새로고침 시 로그인 화면으로 이동한다 (Zustand 메모리 초기화)
 
 **할일 CRUD 흐름**:
-- [ ] SCR-04에서 할일을 등록하면 SCR-03 목록에 즉시 나타난다
-- [ ] SCR-05에서 할일을 수정하면 SCR-03 목록에 변경 내용이 반영된다
-- [ ] SCR-03에서 완료 체크박스 클릭 시 완료 상태가 즉시 갱신된다
-- [ ] SCR-05에서 할일 삭제 시 SCR-03 목록에서 사라진다
+- [x] SCR-04에서 할일을 등록하면 SCR-03 목록에 즉시 나타난다
+- [x] SCR-05에서 할일을 수정하면 SCR-03 목록에 변경 내용이 반영된다
+- [x] SCR-03에서 완료 체크박스 클릭 시 완료 상태가 즉시 갱신된다
+- [x] SCR-05에서 할일 삭제 시 SCR-03 목록에서 사라진다
 
 **필터링 흐름**:
-- [ ] 카테고리 필터 선택 시 해당 카테고리 할일만 표시된다
-- [ ] 완료 여부 필터 선택 시 해당 상태 할일만 표시된다
-- [ ] 기간 초과 필터 선택 시 오늘 이전 `due_date`를 가진 미완료 할일만 표시된다
+- [x] 카테고리 필터 선택 시 해당 카테고리 할일만 표시된다
+- [x] 완료 여부 필터 선택 시 해당 상태 할일만 표시된다
+- [x] 기간 초과 필터 선택 시 오늘 이전 `due_date`를 가진 미완료 할일만 표시된다
 
 **보안 검증**:
-- [ ] 로그인 없이 `/todos` 접근 시 `/login`으로 리다이렉트된다
-- [ ] 토큰 없이 API 직접 호출 시 `401` 응답이 반환된다
+- [x] 로그인 없이 `/todos` 접근 시 `/login`으로 리다이렉트된다
+- [x] 토큰 없이 API 직접 호출 시 `401` 응답이 반환된다
 
 **UI 반응형 검증**:
-- [ ] 375px(모바일) 너비에서 주요 화면(SCR-01~05)이 정상 렌더링된다
-- [ ] 1280px(데스크톱) 너비에서 주요 화면이 정상 렌더링된다
+- [x] 375px(모바일) 너비에서 주요 화면(SCR-01~05)이 정상 렌더링된다
+- [x] 1280px(데스크톱) 너비에서 주요 화면이 정상 렌더링된다
 
 #### 의존성
 - [x] FE-03·FE-04·FE-05·FE-06 모두 완료 후 착수
@@ -549,3 +549,8 @@
 |------|------|--------|-----------|
 | 1.0 | 2026-05-13 | Plan Engineer | 실행계획 최초 작성. DB 2개, Backend 7개, Frontend 7개 총 16개 Task 정의 |
 | 1.1 | 2026-05-13 | Plan Engineer | 백엔드 TypeScript 제거: BE-01~07 전반에 걸쳐 `.ts` → `.js`, `tsconfig.json`·`@types/*`·`ts-node-dev` 제거, `nodemon` 추가, `types/` 디렉토리 제거 |
+| 1.2 | 2026-05-14 | Backend Developer | BE-01~BE-07 완료 조건 전체 체크. 주요 구현 결정사항: `pg.types.setTypeParser(1082)` DATE 문자열 반환, `TEST_DATABASE_URL` 환경변수로 테스트 DB 분리, `AppError` 클래스 기반 에러 처리, `swagger-ui-express` Swagger UI 연동(`/api-docs`), Jest 164개 테스트 통과 |
+| 1.3 | 2026-05-14 | Frontend Developer | FE-01 완료 조건 전체 체크. React 19 + TypeScript + Vite 프로젝트 초기화, TailwindCSS 설정, QueryClient(staleTime 1분), Zustand useAuthStore, 디렉토리 구조 생성, Vite 프록시(/api→localhost:3000) 설정 |
+| 1.4 | 2026-05-14 | Frontend Developer | FE-02 완료 조건 전체 체크. PrivateRoute/PublicOnlyRoute 라우터 보호 구현, 5개 Page 스텁 컴포넌트 생성, Vitest 테스트 환경 설정(jsdom), useAuthStore 7개·AppRouter 10개 총 17개 테스트 통과 |
+| 1.5 | 2026-05-14 | Frontend Developer | FE-03 완료 조건 전체 체크. apiFetch 공통 래퍼(api/client.ts), auth.api.ts, useAuthMutation 훅, LoginPage·RegisterPage TailwindCSS 구현(필드 유효성·에러 표시·로딩 버튼), auth.api 5개·LoginPage 6개·RegisterPage 7개 총 35개 테스트 통과 |
+| 1.6 | 2026-05-14 | Frontend Developer | FE-04~FE-07 완료 조건 전체 체크. todos/categories API 클라이언트, useTodos·useTodoMutations·useCategories 훅, TodoListPage·TodoCard·TodoFilter 구현, TodoCreatePage·TodoEditPage 등록/수정/삭제 폼, Button·Input·Select·Modal·AppLayout·Header 공통 컴포넌트, MSW v2 통합 테스트(auth/todos/responsive 28개 시나리오) 작성. 전체 153개 테스트 통과 |

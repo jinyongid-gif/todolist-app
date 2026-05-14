@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../../swagger/swagger.json');
 
 const authRouter = require('./modules/auth/auth.router');
 const categoriesRouter = require('./modules/categories/categories.router');
@@ -24,6 +26,8 @@ if (process.env.NODE_ENV !== 'test') {
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/auth', authRouter);
 app.use('/api/categories', categoriesRouter);
