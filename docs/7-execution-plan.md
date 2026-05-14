@@ -53,12 +53,12 @@
 **목표**: PostgreSQL 17 데이터베이스를 로컬에서 구동하고 `database/schema.sql`을 적용한다.
 
 #### 완료 조건
-- [ ] PostgreSQL 17 서버가 로컬에서 정상 실행된다 (`pg_isready` 성공)
-- [ ] `todolist_dev` 데이터베이스가 생성된다
-- [ ] `database/schema.sql`을 실행하면 오류 없이 3개 테이블(users, categories, todos)이 생성된다
-- [ ] 4개 기본 카테고리 시드 데이터(업무·개인·쇼핑·기타)가 categories 테이블에 INSERT된다
-- [ ] `psql -c "\d todos"` 로 컬럼·인덱스 구조가 ERD와 일치함을 확인한다
-- [ ] `.env.example`에 `DATABASE_URL`, `POSTGRES_USER`, `POSTGRES_PASSWORD` 항목이 포함된다
+- [x] PostgreSQL 17 서버가 로컬에서 정상 실행된다 (`pg_isready` 성공)
+- [x] `todolist_dev` 데이터베이스가 생성된다
+- [x] `database/schema.sql`을 실행하면 오류 없이 3개 테이블(users, categories, todos)이 생성된다
+- [x] 4개 기본 카테고리 시드 데이터(업무·개인·쇼핑·기타)가 categories 테이블에 INSERT된다
+- [x] `psql -c "\d todos"` 로 컬럼·인덱스 구조가 ERD와 일치함을 확인한다
+- [x] `.env.example`에 `DATABASE_URL`, `POSTGRES_USER`, `POSTGRES_PASSWORD` 항목이 포함된다
 
 #### 의존성
 - 없음 (최초 착수 가능)
@@ -70,12 +70,12 @@
 **목표**: `database/schema.sql`을 테이블 단위 마이그레이션 파일로 분리하여 버전 관리한다.
 
 #### 완료 조건
-- [ ] `database/migrations/001-create-users.sql` 파일이 존재한다
-- [ ] `database/migrations/002-create-categories.sql` 파일이 존재한다
-- [ ] `database/migrations/003-create-todos.sql` 파일이 존재한다
-- [ ] `database/seeds/seed-categories.sql` 파일에 기본 카테고리 INSERT 문이 포함된다
-- [ ] 마이그레이션 파일을 순서대로 실행했을 때 `database/schema.sql`과 동일한 결과를 낸다
-- [ ] 각 마이그레이션 파일은 `IF NOT EXISTS` 또는 `DROP TABLE IF EXISTS`로 재실행 안전성을 보장한다
+- [x] `database/migrations/001-create-users.sql` 파일이 존재한다
+- [x] `database/migrations/002-create-categories.sql` 파일이 존재한다
+- [x] `database/migrations/003-create-todos.sql` 파일이 존재한다
+- [x] `database/seeds/seed-categories.sql` 파일에 기본 카테고리 INSERT 문이 포함된다
+- [x] 마이그레이션 파일을 순서대로 실행했을 때 `database/schema.sql`과 동일한 결과를 낸다
+- [x] 각 마이그레이션 파일은 `IF NOT EXISTS` 또는 `DROP TABLE IF EXISTS`로 재실행 안전성을 보장한다
 
 #### 의존성
 - [x] DB-01 완료 후 착수
@@ -86,22 +86,21 @@
 
 ### BE-01 · 프로젝트 초기화 및 기본 구조 구성
 
-**목표**: `backend/` 디렉토리에 Express + TypeScript 프로젝트를 초기화하고 `4-project-principles.md`에 정의된 디렉토리 구조를 생성한다.
+**목표**: `backend/` 디렉토리에 Express + JavaScript(CommonJS) 프로젝트를 초기화하고 `4-project-principles.md`에 정의된 디렉토리 구조를 생성한다.
 
 #### 완료 조건
-- [ ] `backend/package.json`에 아래 의존성이 선언된다
+- [x] `backend/package.json`에 아래 의존성이 선언된다
   - 런타임: `express`, `pg`, `jsonwebtoken`, `bcrypt`, `morgan`, `winston`, `dotenv`
-  - 개발: `typescript`, `ts-node-dev`, `@types/*`
-- [ ] `backend/tsconfig.json`에 `strict: true`가 활성화된다
-- [ ] 아래 디렉토리 구조가 생성된다
+  - 개발: `nodemon`, `eslint`
+- [x] 아래 디렉토리 구조가 생성된다
   ```
   backend/src/
-    config/ · middleware/ · modules/(auth·users·todos·categories) · types/ · utils/
+    config/ · middleware/ · modules/(auth·users·todos·categories) · utils/
   ```
-- [ ] `backend/src/app.ts`에 Express 앱 인스턴스가 생성되고 `json()`, `morgan` 미들웨어가 등록된다
-- [ ] `backend/src/server.ts`에서 포트 3000(기본값)으로 서버가 기동된다
-- [ ] `npm run dev` 명령으로 서버가 정상 기동되고 `GET /health` 가 `200 OK`를 반환한다
-- [ ] `.env.example`에 `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRY`, `SERVER_PORT`, `NODE_ENV`, `CORS_ORIGIN` 항목이 포함된다
+- [x] `backend/src/app.js`에 Express 앱 인스턴스가 생성되고 `json()`, `morgan` 미들웨어가 등록된다
+- [x] `backend/src/server.js`에서 포트 3000(기본값)으로 서버가 기동된다
+- [x] `npm run dev` 명령으로 서버가 정상 기동되고 `GET /health` 가 `200 OK`를 반환한다
+- [x] `.env.example`에 `DATABASE_URL`, `JWT_SECRET`, `JWT_EXPIRY`, `SERVER_PORT`, `NODE_ENV`, `CORS_ORIGIN` 항목이 포함된다
 
 #### 의존성
 - [x] DB-01 완료 후 착수
@@ -113,11 +112,11 @@
 **목표**: `pg.Pool` 기반 DB 연결 인스턴스와 환경변수 파싱 모듈을 구현한다.
 
 #### 완료 조건
-- [ ] `backend/src/config/db.ts`에서 `pg.Pool`이 `DATABASE_URL` 환경변수를 사용해 초기화된다
-- [ ] Pool 최대 연결 수가 20으로 설정된다
-- [ ] `backend/src/config/env.ts`에서 필수 환경변수(`DATABASE_URL`, `JWT_SECRET`)가 존재하지 않을 경우 서버 기동 시 즉시 프로세스를 종료한다
-- [ ] `db.query()`를 통해 `SELECT 1` 쿼리 실행이 성공한다 (연결 검증)
-- [ ] DB 연결 실패 시 winston 로거에 에러 레벨 로그가 출력된다
+- [x] `backend/src/config/db.js`에서 `pg.Pool`이 `DATABASE_URL` 환경변수를 사용해 초기화된다
+- [x] Pool 최대 연결 수가 20으로 설정된다
+- [x] `backend/src/config/env.js`에서 필수 환경변수(`DATABASE_URL`, `JWT_SECRET`)가 존재하지 않을 경우 서버 기동 시 즉시 프로세스를 종료한다
+- [x] `db.query()`를 통해 `SELECT 1` 쿼리 실행이 성공한다 (연결 검증)
+- [x] DB 연결 실패 시 winston 로거에 에러 레벨 로그가 출력된다
 
 #### 의존성
 - [x] BE-01 완료 후 착수
@@ -131,21 +130,20 @@
 
 #### 완료 조건
 
-**인증 미들웨어** (`auth.middleware.ts`):
-- [ ] `Authorization: Bearer <token>` 헤더가 없으면 `401 Unauthorized`를 반환한다
-- [ ] 유효하지 않거나 만료된 토큰은 `401 Unauthorized`를 반환한다
-- [ ] 유효한 토큰은 `req.user`에 `{ id, email }`을 설정하고 `next()`를 호출한다
-- [ ] `backend/src/types/express.d.ts`에 `req.user` 타입이 확장 선언된다
+**인증 미들웨어** (`auth.middleware.js`):
+- [x] `Authorization: Bearer <token>` 헤더가 없으면 `401 Unauthorized`를 반환한다
+- [x] 유효하지 않거나 만료된 토큰은 `401 Unauthorized`를 반환한다
+- [x] 유효한 토큰은 `req.user`에 `{ id, email }`을 설정하고 `next()`를 호출한다
 
-**에러 핸들러** (`error.middleware.ts`):
-- [ ] `production` 환경에서는 스택 트레이스를 응답 바디에 포함하지 않는다
-- [ ] 처리되지 않은 에러는 `500 Internal Server Error`로 응답한다
-- [ ] 알려진 비즈니스 에러(예: `AppError` 클래스)는 지정된 HTTP 상태코드로 응답한다
-- [ ] 모든 서버 에러는 winston 로거에 기록된다
+**에러 핸들러** (`error.middleware.js`):
+- [x] `production` 환경에서는 스택 트레이스를 응답 바디에 포함하지 않는다
+- [x] 처리되지 않은 에러는 `500 Internal Server Error`로 응답한다
+- [x] 알려진 비즈니스 에러(예: `AppError` 클래스)는 지정된 HTTP 상태코드로 응답한다
+- [x] 모든 서버 에러는 winston 로거에 기록된다
 
-**입력 검증** (`validation.middleware.ts`):
-- [ ] 필수 필드 누락 시 `400 Bad Request`와 어느 필드가 누락되었는지 메시지를 반환한다
-- [ ] 이메일 형식 검증이 동작한다 (RFC 5322 기준)
+**입력 검증** (`validation.middleware.js`):
+- [x] 필수 필드 누락 시 `400 Bad Request`와 어느 필드가 누락되었는지 메시지를 반환한다
+- [x] 이메일 형식 검증이 동작한다 (RFC 5322 기준)
 
 #### 의존성
 - [x] BE-02 완료 후 착수
@@ -159,23 +157,23 @@
 #### 완료 조건
 
 **회원가입** (`POST /api/auth/register`):
-- [ ] 이메일·비밀번호·이름이 모두 있어야 하며, 누락 시 `400`을 반환한다
-- [ ] 이메일 형식이 유효하지 않으면 `400`을 반환한다
-- [ ] 이미 가입된 이메일이면 `409 Conflict`를 반환한다
-- [ ] 비밀번호는 `bcrypt.hash(password, 10)` 이상으로 해시하여 저장한다
-- [ ] 성공 시 `201 Created`와 `{ id, email, name }` (비밀번호 미포함)을 반환한다
+- [x] 이메일·비밀번호·이름이 모두 있어야 하며, 누락 시 `400`을 반환한다
+- [x] 이메일 형식이 유효하지 않으면 `400`을 반환한다
+- [x] 이미 가입된 이메일이면 `409 Conflict`를 반환한다
+- [x] 비밀번호는 `bcrypt.hash(password, 10)` 이상으로 해시하여 저장한다
+- [x] 성공 시 `201 Created`와 `{ id, email, name }` (비밀번호 미포함)을 반환한다
 
 **로그인** (`POST /api/auth/login`):
-- [ ] 존재하지 않는 이메일이면 `401 Unauthorized`를 반환한다
-- [ ] 비밀번호 불일치 시 `401 Unauthorized`를 반환한다 (이메일 존재 여부 노출 금지)
-- [ ] 성공 시 `200 OK`와 `{ access_token, user: { id, email, name } }`을 반환한다
-- [ ] `access_token`의 payload에는 `user_id`와 `email`이 포함된다
-- [ ] `access_token`의 만료 시간은 `JWT_EXPIRY` 환경변수 값을 따른다
+- [x] 존재하지 않는 이메일이면 `401 Unauthorized`를 반환한다
+- [x] 비밀번호 불일치 시 `401 Unauthorized`를 반환한다 (이메일 존재 여부 노출 금지)
+- [x] 성공 시 `200 OK`와 `{ access_token, user: { id, email, name } }`을 반환한다
+- [x] `access_token`의 payload에는 `user_id`와 `email`이 포함된다
+- [x] `access_token`의 만료 시간은 `JWT_EXPIRY` 환경변수 값을 따른다
 
 **공통**:
-- [ ] 모든 SQL 쿼리는 파라미터화 쿼리(`$1, $2`)를 사용한다
-- [ ] `backend/src/utils/password.utils.ts`에 `hashPassword()`, `comparePassword()` 함수가 구현된다
-- [ ] `backend/src/utils/jwt.utils.ts`에 `signToken()`, `verifyToken()` 함수가 구현된다
+- [x] 모든 SQL 쿼리는 파라미터화 쿼리(`$1, $2`)를 사용한다
+- [x] `backend/src/utils/password.utils.js`에 `hashPassword()`, `comparePassword()` 함수가 구현된다
+- [x] `backend/src/utils/jwt.utils.js`에 `signToken()`, `verifyToken()` 함수가 구현된다
 
 #### 의존성
 - [x] BE-03 완료 후 착수
@@ -189,14 +187,14 @@
 #### 완료 조건
 
 **목록 조회** (`GET /api/categories`):
-- [ ] `auth.middleware`가 적용되어 인증되지 않은 요청은 `401`을 반환한다
-- [ ] 기본 카테고리(`user_id IS NULL`) + 로그인 사용자 소유 카테고리를 함께 반환한다
-- [ ] 반환 형식: `{ data: [{ id, name, is_default }] }`
-- [ ] 기본 카테고리가 목록 상단에 먼저 나온다
+- [x] `auth.middleware`가 적용되어 인증되지 않은 요청은 `401`을 반환한다
+- [x] 기본 카테고리(`user_id IS NULL`) + 로그인 사용자 소유 카테고리를 함께 반환한다
+- [x] 반환 형식: `{ data: [{ id, name, is_default }] }`
+- [x] 기본 카테고리가 목록 상단에 먼저 나온다
 
 **공통**:
-- [ ] `categories.repository.ts`에 `findByUserId(userId)` 함수가 구현된다
-- [ ] 모든 쿼리는 파라미터화 쿼리를 사용한다
+- [x] `categories.repository.js`에 `findByUserId(userId)` 함수가 구현된다
+- [x] 모든 쿼리는 파라미터화 쿼리를 사용한다
 
 #### 의존성
 - [x] BE-03 완료 후 착수
@@ -210,46 +208,46 @@
 #### 완료 조건
 
 **목록 조회** (`GET /api/todos`):
-- [ ] `auth.middleware`가 적용된다
-- [ ] 로그인 사용자 본인의 할일만 반환된다
-- [ ] `?category_id=` 파라미터로 카테고리 필터링이 동작한다
-- [ ] `?is_completed=true/false` 파라미터로 완료 여부 필터링이 동작한다
-- [ ] `?overdue=true` 파라미터로 기간 초과(`due_date < CURRENT_DATE AND is_completed = FALSE`) 필터링이 동작한다
-- [ ] 기본 정렬은 `created_at DESC`이다
-- [ ] 반환 형식: `{ data: [todos] }`
+- [x] `auth.middleware`가 적용된다
+- [x] 로그인 사용자 본인의 할일만 반환된다
+- [x] `?category_id=` 파라미터로 카테고리 필터링이 동작한다
+- [x] `?is_completed=true/false` 파라미터로 완료 여부 필터링이 동작한다
+- [x] `?overdue=true` 파라미터로 기간 초과(`due_date < CURRENT_DATE AND is_completed = FALSE`) 필터링이 동작한다
+- [x] 기본 정렬은 `created_at DESC`이다
+- [x] 반환 형식: `{ data: [todos] }`
 
 **단건 조회** (`GET /api/todos/:id`):
-- [ ] 존재하지 않는 ID는 `404 Not Found`를 반환한다
-- [ ] 다른 사용자의 할일에 접근하면 `403 Forbidden`을 반환한다
+- [x] 존재하지 않는 ID는 `404 Not Found`를 반환한다
+- [x] 다른 사용자의 할일에 접근하면 `403 Forbidden`을 반환한다
 
 **등록** (`POST /api/todos`):
-- [ ] `title`과 `category_id`는 필수이며, 누락 시 `400`을 반환한다
-- [ ] `category_id`가 DB에 존재하지 않으면 `400`을 반환한다
-- [ ] `due_date`는 ISO 8601 날짜 형식(`YYYY-MM-DD`)만 허용한다
-- [ ] 성공 시 `201 Created`와 생성된 할일 전체를 반환한다
+- [x] `title`과 `category_id`는 필수이며, 누락 시 `400`을 반환한다
+- [x] `category_id`가 DB에 존재하지 않으면 `400`을 반환한다
+- [x] `due_date`는 ISO 8601 날짜 형식(`YYYY-MM-DD`)만 허용한다
+- [x] 성공 시 `201 Created`와 생성된 할일 전체를 반환한다
 
 **수정** (`PUT /api/todos/:id`):
-- [ ] 존재하지 않는 ID는 `404`를 반환한다
-- [ ] 다른 사용자의 할일 수정 시도는 `403`을 반환한다
-- [ ] `updated_at`이 현재 시각으로 갱신된다
-- [ ] 성공 시 `200 OK`와 수정된 할일 전체를 반환한다
+- [x] 존재하지 않는 ID는 `404`를 반환한다
+- [x] 다른 사용자의 할일 수정 시도는 `403`을 반환한다
+- [x] `updated_at`이 현재 시각으로 갱신된다
+- [x] 성공 시 `200 OK`와 수정된 할일 전체를 반환한다
 
 **완료 토글** (`PATCH /api/todos/:id/complete`):
-- [ ] 존재하지 않는 ID는 `404`를 반환한다
-- [ ] 다른 사용자의 할일 토글 시도는 `403`을 반환한다
-- [ ] `is_completed`가 `TRUE ↔ FALSE`로 토글된다
-- [ ] `updated_at`이 갱신된다
-- [ ] 반환 형식: `{ id, is_completed, updated_at }`
+- [x] 존재하지 않는 ID는 `404`를 반환한다
+- [x] 다른 사용자의 할일 토글 시도는 `403`을 반환한다
+- [x] `is_completed`가 `TRUE ↔ FALSE`로 토글된다
+- [x] `updated_at`이 갱신된다
+- [x] 반환 형식: `{ id, is_completed, updated_at }`
 
 **삭제** (`DELETE /api/todos/:id`):
-- [ ] 존재하지 않는 ID는 `404`를 반환한다
-- [ ] 다른 사용자의 할일 삭제 시도는 `403`을 반환한다
-- [ ] 성공 시 `204 No Content`를 반환한다
+- [x] 존재하지 않는 ID는 `404`를 반환한다
+- [x] 다른 사용자의 할일 삭제 시도는 `403`을 반환한다
+- [x] 성공 시 `204 No Content`를 반환한다
 
 **공통**:
-- [ ] `todos.repository.ts`에 `findByUserId()`, `findById()`, `create()`, `update()`, `updateComplete()`, `remove()` 함수가 구현된다
-- [ ] 모든 쿼리는 파라미터화 쿼리를 사용한다
-- [ ] 소유권 검증 로직은 `todos.service.ts`에 위치한다
+- [x] `todos.repository.js`에 `findByUserId()`, `findById()`, `create()`, `update()`, `updateComplete()`, `remove()` 함수가 구현된다
+- [x] 모든 쿼리는 파라미터화 쿼리를 사용한다
+- [x] 소유권 검증 로직은 `todos.service.js`에 위치한다
 
 #### 의존성
 - [x] BE-03 완료 후 착수
@@ -262,11 +260,11 @@
 **목표**: 주요 시나리오에 대한 통합 테스트를 작성하고 통과시킨다.
 
 #### 완료 조건
-- [ ] `tests/integration/auth.test.ts`: 회원가입·로그인 성공/실패 케이스를 커버한다
-- [ ] `tests/integration/todos.test.ts`: 할일 CRUD·완료 토글·필터링 성공/실패 케이스를 커버한다
-- [ ] `tests/integration/auth-guard.test.ts`: 인증 토큰 없음·만료·다른 사용자 접근 등 보안 케이스를 커버한다
-- [ ] `npm test` 실행 시 모든 테스트가 통과한다
-- [ ] 테스트는 별도 `todolist_test` 데이터베이스를 사용하며, 각 테스트 후 데이터를 초기화한다
+- [x] `tests/integration/auth.test.js`: 회원가입·로그인 성공/실패 케이스를 커버한다
+- [x] `tests/integration/todos.test.js`: 할일 CRUD·완료 토글·필터링 성공/실패 케이스를 커버한다
+- [x] `tests/integration/auth-guard.test.js`: 인증 토큰 없음·만료·다른 사용자 접근 등 보안 케이스를 커버한다
+- [x] `npm test` 실행 시 모든 테스트가 통과한다
+- [x] 테스트는 별도 `todolist_test` 데이터베이스를 사용하며, 각 테스트 후 데이터를 초기화한다
 
 #### 의존성
 - [x] BE-04·BE-05·BE-06 모두 완료 후 착수
@@ -550,3 +548,4 @@
 | 버전 | 날짜 | 변경자 | 변경 내용 |
 |------|------|--------|-----------|
 | 1.0 | 2026-05-13 | Plan Engineer | 실행계획 최초 작성. DB 2개, Backend 7개, Frontend 7개 총 16개 Task 정의 |
+| 1.1 | 2026-05-13 | Plan Engineer | 백엔드 TypeScript 제거: BE-01~07 전반에 걸쳐 `.ts` → `.js`, `tsconfig.json`·`@types/*`·`ts-node-dev` 제거, `nodemon` 추가, `types/` 디렉토리 제거 |

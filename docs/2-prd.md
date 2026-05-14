@@ -137,10 +137,10 @@
 
 | 계층 | 기술 | 비고 |
 |------|------|------|
-| 프론트엔드 프레임워크 | React 19 + TypeScript | |
+| 프론트엔드 프레임워크 | React 19 + TypeScript | 프론트엔드만 TypeScript 사용 |
 | 상태 관리 | Zustand | 클라이언트 전역 상태 |
 | 서버 상태 관리 | TanStack Query (React Query v5) | API 캐싱·동기화 |
-| 백엔드 런타임 | Node.js + Express | REST API 서버 |
+| 백엔드 런타임 | Node.js + Express (JavaScript) | TypeScript 미사용, CommonJS |
 | DB 클라이언트 | pg (node-postgres) | PostgreSQL 연동 필수 라이브러리 |
 | 데이터베이스 | PostgreSQL 17 | |
 | 인증 | JWT (jsonwebtoken) | 1차 |
@@ -337,3 +337,4 @@
 | 1.1 | 2026-05-13 | PM | §8 DELETE /api/categories/:id에 BR-04 적용 조건(403) 명시, §7 todos 테이블에 `updated_at` 컬럼 추가 | 도메인 정의서 비교 평가 권고사항 반영 |
 | 1.2 | 2026-05-13 | PM | §5.1 로깅 라이브러리(morgan, winston) 추가, §5.2 JWT 토큰 저장 위치 명시 | 아키텍처 문서 일관성 검토 권고사항 반영 |
 | 1.3 | 2026-05-13 | PM | §5.2 JWT 토큰 저장 방식을 localStorage → Zustand 스토어(메모리)로 변경 | XSS 취약점 노출 최소화 및 보안 기본값 원칙 적용 |
+| 1.4 | 2026-05-13 | PM | §5.1 백엔드 기술 스택을 Node.js + Express (JavaScript)로 명시 (TypeScript 미사용) | 백엔드 개발에서 TypeScript 미사용 결정 |

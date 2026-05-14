@@ -22,9 +22,9 @@
 **적용 예시:**
 
 - **백엔드 컨트롤러:** HTTP 요청/응답 처리만 담당. 비즈니스 로직은 서비스 계층으로 위임
-  ```typescript
+  ```javascript
   // ✓ Good: 컨트롤러는 요청 검증과 응답만 담당
-  async createTodo(req: Request, res: Response) {
+  async createTodo(req, res) {
     const { title, category_id } = req.body;
     const userId = req.user.id;
     try {
@@ -36,7 +36,7 @@
   }
 
   // ✗ Bad: 컨트롤러가 데이터베이스 접근과 비즈니스 로직 담당
-  async createTodo(req: Request, res: Response) {
+  async createTodo(req, res) {
     const { title } = req.body;
     const user = await pool.query('SELECT * FROM users WHERE id = $1', [req.user.id]);
     const todo = await pool.query('INSERT INTO todos ...', [title]);
@@ -115,7 +115,7 @@ export function TodoPage() {
 
 **적용 예시:**
 
-```typescript
+```javascript
 // ✗ Bad: 유효성 검사를 여러 곳에서 반복
 async createTodo(req, res) {
   if (!req.body.title || req.body.title.trim() === '') {
@@ -176,7 +176,7 @@ async updateTodo(req, res) {
 
 **적용 예시:**
 
-```typescript
+```javascript
 // ✗ Bad: 숨겨진 전역 의존성
 let dbConnection; // 전역
 const todoService = {
@@ -188,9 +188,11 @@ const todoService = {
 
 // ✓ Good: 의존성을 명시적으로 주입
 class TodoService {
-  constructor(private db: Database) {}
+  constructor(db) {
+    this.db = db;
+  }
   
-  async create(data: CreateTodoDto) {
+  async create(data) {
     const result = await this.db.query(...);
     return result;
   }
@@ -209,7 +211,7 @@ const todoService = new TodoService(db);
 
 **적용 예시:**
 
-```typescript
+```javascript
 // ✗ Bad: 깊은 중첩 구조
 async updateTodo(req, res) {
   if (req.user) {
@@ -259,13 +261,13 @@ async updateTodo(req, res) {
 
 ```typescript
 // ✗ Bad: 기존 객체 수정
-function addTodoToList(todos: Todo[], newTodo: Todo) {
+function addTodoToList(todos, newTodo) {
   todos.push(newTodo); // 원본 배열 변경
   return todos;
 }
 
 // ✓ Good: 새 배열 반환
-function addTodoToList(todos: Todo[], newTodo: Todo) {
+function addTodoToList(todos, newTodo) {
   return [...todos, newTodo]; // 새 배열 생성
 }
 
@@ -295,7 +297,7 @@ const useAuthStore = create((set) => ({
 
 **적용 예시:**
 
-```typescript
+```javascript
 // ✗ Bad: 기본적으로 모두 접근 가능
 app.get('/api/todos/:id', (req, res) => {
   const todo = await getTodo(req.params.id);
@@ -360,10 +362,12 @@ DB
 - 같은 계층끼리의 의존성은 최소화합니다
 
 **위반 예시:**
-```typescript
+```javascript
 // ✗ Bad: Repository가 Controller에 의존 (순환 의존성)
 class TodoRepository {
-  constructor(private controller: TodoController) {}
+  constructor(controller) {
+    this.controller = controller;
+  }
   async create(data) {
     this.controller.validateInput(data); // 순환 의존성!
   }
@@ -371,7 +375,7 @@ class TodoRepository {
 
 // ✓ Good: Repository는 독립적, Controller에서 검증 후 호출
 class TodoRepository {
-  async create(data: CreateTodoDto) {
+  async create(data) {
     // DB 쿼리만 실행
     return await this.db.query(...);
   }
@@ -395,19 +399,19 @@ class TodoController {
 - **Service ↔ Repository:** DTO 또는 Plain Object
 - **Repository ↔ DB:** SQL 파라미터
 
-```typescript
-// 예시: DTO 정의
-interface CreateTodoDto {
-  title: string;
-  description?: string;
-  due_date?: string;
-  category_id: number;
-  user_id: number; // Controller에서 JWT로부터 주입
-}
+```javascript
+// 예시: DTO (Plain Object)
+// {
+//   title: string,
+//   description?: string,
+//   due_date?: string,
+//   category_id: number,
+//   user_id: number  // Controller에서 JWT로부터 주입
+// }
 
 // Controller
-async create(req: Request, res: Response) {
-  const dto: CreateTodoDto = {
+async create(req, res) {
+  const dto = {
     title: req.body.title,
     category_id: req.body.category_id,
     user_id: req.user.id, // JWT로부터
@@ -419,7 +423,7 @@ async create(req: Request, res: Response) {
 }
 
 // Service
-async create(dto: CreateTodoDto) {
+async create(dto) {
   // 비즈니스 로직: 카테고리 유효성 확인
   const category = await this.categoryRepository.getById(dto.category_id);
   if (!category || (category.user_id !== dto.user_id && !category.is_default)) {
@@ -431,7 +435,7 @@ async create(dto: CreateTodoDto) {
 }
 
 // Repository
-async create(data: CreateTodoDto) {
+async create(data) {
   const query = `
     INSERT INTO todos (user_id, category_id, title, description, due_date, is_completed, created_at, updated_at)
     VALUES ($1, $2, $3, $4, $5, FALSE, NOW(), NOW())
@@ -450,17 +454,21 @@ async create(data: CreateTodoDto) {
 
 #### 2.1.4 순환 의존성 금지
 
-```typescript
+```javascript
 // ✗ Bad: Service A가 Service B에, Service B가 Service A에 의존
 class TodoService {
-  constructor(private categoryService: CategoryService) {}
+  constructor(categoryService) {
+    this.categoryService = categoryService;
+  }
   async create(dto) {
     await this.categoryService.validate(dto.category_id); // 순환!
   }
 }
 
 class CategoryService {
-  constructor(private todoService: TodoService) {}
+  constructor(todoService) {
+    this.todoService = todoService;
+  }
   async delete(categoryId) {
     const todos = await this.todoService.getTodosByCategory(categoryId);
   }
@@ -468,10 +476,10 @@ class CategoryService {
 
 // ✓ Good: 서로 다른 레포지토리로 접근하거나 공통 유틸로 추상화
 class TodoService {
-  constructor(
-    private todoRepository: TodoRepository,
-    private categoryRepository: CategoryRepository
-  ) {}
+  constructor(todoRepository, categoryRepository) {
+    this.todoRepository = todoRepository;
+    this.categoryRepository = categoryRepository;
+  }
   async create(dto) {
     const category = await this.categoryRepository.getById(dto.category_id);
     if (!category) throw new Error("유효하지 않은 카테고리");
@@ -480,10 +488,10 @@ class TodoService {
 }
 
 class CategoryService {
-  constructor(
-    private categoryRepository: CategoryRepository,
-    private todoRepository: TodoRepository
-  ) {}
+  constructor(categoryRepository, todoRepository) {
+    this.categoryRepository = categoryRepository;
+    this.todoRepository = todoRepository;
+  }
   async delete(categoryId) {
     // 삭제 전 할일 확인 (순환 없음, 직접 리포지토리 접근)
     const todos = await this.todoRepository.findByCategory(categoryId);
@@ -615,11 +623,11 @@ export function useTodos() {
 
 | 파일 타입 | 규칙 | 예시 |
 |----------|------|------|
-| **라우터** | `{resource}.router.ts` | `todos.router.ts` |
-| **컨트롤러** | `{resource}.controller.ts` | `todos.controller.ts` |
-| **서비스** | `{resource}.service.ts` | `todos.service.ts` |
-| **레포지토리** | `{resource}.repository.ts` | `todos.repository.ts` |
-| **미들웨어** | `{name}.middleware.ts` | `auth.middleware.ts`, `error.middleware.ts` |
+| **라우터** | `{resource}.router.js` | `todos.router.js` |
+| **컨트롤러** | `{resource}.controller.js` | `todos.controller.js` |
+| **서비스** | `{resource}.service.js` | `todos.service.js` |
+| **레포지토리** | `{resource}.repository.js` | `todos.repository.js` |
+| **미들웨어** | `{name}.middleware.js` | `auth.middleware.js`, `error.middleware.js` |
 
 #### 3.2.1 HTTP 메서드별 함수명 규칙
 
@@ -631,45 +639,45 @@ export function useTodos() {
 | **DELETE** | `delete{Entity}` | `deleteTodo()` |
 | **PATCH /complete** | `toggle{Entity}` 또는 `complete{Entity}` | `completeTodo()` |
 
-```typescript
+```javascript
 // Repository 예시
 class TodoRepository {
-  async getTodos(userId: number) { /* ... */ }
-  async getTodoById(id: number) { /* ... */ }
-  async createTodo(data: CreateTodoDto) { /* ... */ }
-  async updateTodo(id: number, data: UpdateTodoDto) { /* ... */ }
-  async deleteTodo(id: number) { /* ... */ }
-  async completeTodo(id: number) { /* ... */ }
+  async getTodos(userId) { /* ... */ }
+  async getTodoById(id) { /* ... */ }
+  async createTodo(data) { /* ... */ }
+  async updateTodo(id, data) { /* ... */ }
+  async deleteTodo(id) { /* ... */ }
+  async completeTodo(id) { /* ... */ }
 }
 
 // Service 예시
 class TodoService {
-  async getTodos(userId: number, filters?: Filters) { /* ... */ }
-  async getTodoById(id: number, userId: number) { /* ... */ }
-  async createTodo(dto: CreateTodoDto) { /* ... */ }
-  async updateTodo(id: number, dto: UpdateTodoDto, userId: number) { /* ... */ }
-  async deleteTodo(id: number, userId: number) { /* ... */ }
-  async completeTodo(id: number, userId: number) { /* ... */ }
+  async getTodos(userId, filters) { /* ... */ }
+  async getTodoById(id, userId) { /* ... */ }
+  async createTodo(dto) { /* ... */ }
+  async updateTodo(id, dto, userId) { /* ... */ }
+  async deleteTodo(id, userId) { /* ... */ }
+  async completeTodo(id, userId) { /* ... */ }
 }
 
 // Controller 예시
 class TodoController {
-  async getTodos(req: Request, res: Response) {
+  async getTodos(req, res) {
     const todos = await this.todoService.getTodos(req.user.id, req.query);
     res.json({ data: todos });
   }
 
-  async createTodo(req: Request, res: Response) {
+  async createTodo(req, res) {
     const todo = await this.todoService.createTodo({ ...req.body, userId: req.user.id });
     res.status(201).json({ data: todo });
   }
 
-  async updateTodo(req: Request, res: Response) {
+  async updateTodo(req, res) {
     const todo = await this.todoService.updateTodo(req.params.id, req.body, req.user.id);
     res.json({ data: todo });
   }
 
-  async completeTodo(req: Request, res: Response) {
+  async completeTodo(req, res) {
     const todo = await this.todoService.completeTodo(req.params.id, req.user.id);
     res.json({ data: todo });
   }
@@ -972,7 +980,9 @@ describe('TodoService', () => {
 });
 ```
 
-### 4.6 TypeScript strict mode 필수
+### 4.6 TypeScript strict mode 필수 (프론트엔드 전용)
+
+**적용 범위:** 프론트엔드(`frontend/`)에만 해당합니다. 백엔드는 JavaScript를 사용하므로 해당 없습니다.
 
 `tsconfig.json`에서 `"strict": true` 설정 필수:
 
@@ -1039,8 +1049,8 @@ backend/
 ├── .env.example      ← 템플릿 (값 없음, 리포지토리에 커밋)
 └── src/
     └── config/
-        ├── db.ts     ← DB 인스턴스 생성
-        └── env.ts    ← 환경 변수 파싱 및 검증
+        ├── db.js     ← DB 인스턴스 생성
+        └── env.js    ← 환경 변수 파싱 및 검증
 
 frontend/
 ├── .env              ← 실제 값 (로컬 개발 환경)
@@ -1088,7 +1098,7 @@ CORS_ORIGIN=http://localhost:5173
 
 **코드에서 로드:**
 
-```typescript
+```javascript
 // ✗ Bad: 하드코딩
 const dbUrl = "postgresql://user:pass@localhost:5432/todolist";
 const jwtSecret = "super-secret-key";
@@ -1106,7 +1116,7 @@ if (!dbUrl || !jwtSecret) {
 
 #### 5.2.1 SQL Injection 방지 (파라미터화 쿼리 필수)
 
-```typescript
+```javascript
 // ✗ Bad: 문자열 결합 (SQL Injection 위험)
 const query = `SELECT * FROM users WHERE email = '${req.body.email}'`;
 const result = await db.query(query);
@@ -1117,13 +1127,13 @@ const result = await db.query(query, [req.body.email]);
 
 // Repository에서도 파라미터화 쿼리 필수
 class UserRepository {
-  async getByEmail(email: string) {
+  async getByEmail(email) {
     const query = 'SELECT * FROM users WHERE email = $1';
     const result = await this.db.query(query, [email]);
     return result.rows[0];
   }
 
-  async create(data: CreateUserDto) {
+  async create(data) {
     const query = `
       INSERT INTO users (email, password, name, created_at)
       VALUES ($1, $2, $3, NOW())
@@ -1141,7 +1151,7 @@ class UserRepository {
 
 #### 5.2.2 JWT 검증 미들웨어 필수 적용
 
-```typescript
+```javascript
 // ✗ Bad: 보호 필요한 라우트에 미들웨어 미적용
 app.get('/api/todos', (req, res) => {
   // JWT 검증 없음!
@@ -1156,7 +1166,7 @@ app.get('/api/todos', authenticate, (req, res) => {
 });
 
 // authenticate 미들웨어
-export function authenticate(req: Request, res: Response, next: NextFunction) {
+function authenticate(req, res, next) {
   const token = req.headers.authorization?.split(' ')[1];
   
   if (!token) {
@@ -1164,19 +1174,21 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
-    req.user = decoded as JwtPayload;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
     next();
   } catch (error) {
     res.status(401).json({ message: "유효하지 않은 토큰입니다" });
   }
 }
+
+module.exports = { authenticate };
 ```
 
 #### 5.2.3 bcrypt 해시 라운드 (최소 10 이상)
 
-```typescript
-import bcrypt from 'bcrypt';
+```javascript
+const bcrypt = require('bcrypt');
 
 // ✗ Bad: 라운드 수 부족
 const hash = await bcrypt.hash(password, 5); // 너무 약함
@@ -1186,7 +1198,7 @@ const SALT_ROUNDS = 10; // 또는 그 이상
 const hash = await bcrypt.hash(password, SALT_ROUNDS);
 
 // 로그인 시 검증
-async login(email: string, password: string) {
+async login(email, password) {
   const user = await this.userRepository.getByEmail(email);
   if (!user) throw new Error("이메일 또는 비밀번호 오류");
   
@@ -1195,7 +1207,7 @@ async login(email: string, password: string) {
   
   const token = jwt.sign(
     { id: user.id, email: user.email },
-    process.env.JWT_SECRET!
+    process.env.JWT_SECRET
   );
   return token;
 }
@@ -1203,9 +1215,9 @@ async login(email: string, password: string) {
 
 #### 5.2.4 사용자 입력 검증 (컨트롤러 진입점에서 즉시)
 
-```typescript
+```javascript
 // ✓ Good: 컨트롤러에서 즉시 검증
-async createTodo(req: Request, res: Response) {
+async createTodo(req, res) {
   // 1. 입력 유효성 검사
   if (!req.body.title || typeof req.body.title !== 'string') {
     return res.status(400).json({ message: "제목 필수" });
@@ -1241,9 +1253,9 @@ async createTodo(req: Request, res: Response) {
 
 #### 5.2.5 에러 응답에 스택 트레이스 노출 금지
 
-```typescript
+```javascript
 // ✗ Bad: 프로덕션에서 스택 트레이스 노출
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err, req, res, next) => {
   res.status(500).json({
     message: err.message,
     stack: err.stack // 위험!
@@ -1251,7 +1263,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 // ✓ Good: 환경에 따른 처리
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err, req, res, next) => {
   console.error(err); // 서버 로그에만 기록
   
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -1265,7 +1277,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 #### 5.2.6 CORS 허용 오리진 환경 변수로 관리
 
-```typescript
+```javascript
 // ✗ Bad: 하드코딩된 CORS 설정
 app.use(cors({ origin: '*' })); // 모든 오리진 허용 (위험)
 
@@ -1287,9 +1299,9 @@ CORS_ORIGIN=https://www.mytodoapp.com
 
 #### 5.3.1 모든 API 요청/응답 로깅
 
-```typescript
-import morgan from 'morgan';
-import winston from 'winston';
+```javascript
+const morgan = require('morgan');
+const winston = require('winston');
 
 // HTTP 요청 로깅
 app.use(morgan('combined', {
@@ -1301,7 +1313,7 @@ app.use(morgan('combined', {
 }));
 
 // 또는 커스텀 미들웨어
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use((req, res, next) => {
   const startTime = Date.now();
   
   res.on('finish', () => {
@@ -1321,9 +1333,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
 #### 5.3.2 에러 로그에 userId, endpoint, timestamp 포함
 
-```typescript
+```javascript
 // ✓ Good: 구조화된 에러 로깅
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err, req, res, next) => {
   const errorLog = {
     timestamp: new Date().toISOString(),
     userId: req.user?.id,
@@ -1344,9 +1356,9 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 #### 5.3.3 DB 연결 Pool 사용
 
-```typescript
+```javascript
 // ✓ Good: pg.Pool 사용
-import { Pool } from 'pg';
+const { Pool } = require('pg');
 
 const pool = new Pool({
   host: process.env.DB_HOST,
@@ -1727,55 +1739,50 @@ export function formatDate(date: string): string {
 backend/
 ├── src/
 │   ├── config/                   # 환경 변수 로드 및 설정
-│   │   ├── db.ts                 # pg.Pool 인스턴스
-│   │   └── env.ts                # 환경 변수 파싱
+│   │   ├── db.js                 # pg.Pool 인스턴스
+│   │   └── env.js                # 환경 변수 파싱
 │   │
 │   ├── middleware/               # Express 미들웨어
-│   │   ├── auth.middleware.ts    # JWT 검증
-│   │   ├── error.middleware.ts   # 전역 에러 핸들러
-│   │   └── validation.middleware.ts
+│   │   ├── auth.middleware.js    # JWT 검증
+│   │   ├── error.middleware.js   # 전역 에러 핸들러
+│   │   └── validation.middleware.js
 │   │
 │   ├── modules/                  # 도메인별 모듈 (라우터/컨트롤러/서비스/레포지토리)
 │   │   ├── auth/
-│   │   │   ├── auth.router.ts
-│   │   │   ├── auth.controller.ts
-│   │   │   └── auth.service.ts
+│   │   │   ├── auth.router.js
+│   │   │   ├── auth.controller.js
+│   │   │   └── auth.service.js
 │   │   │
 │   │   ├── users/
-│   │   │   ├── users.router.ts
-│   │   │   ├── users.controller.ts
-│   │   │   ├── users.service.ts
-│   │   │   └── users.repository.ts
+│   │   │   ├── users.router.js
+│   │   │   ├── users.controller.js
+│   │   │   ├── users.service.js
+│   │   │   └── users.repository.js
 │   │   │
 │   │   ├── todos/
-│   │   │   ├── todos.router.ts
-│   │   │   ├── todos.controller.ts
-│   │   │   ├── todos.service.ts
-│   │   │   ├── todos.repository.ts
-│   │   │   └── todos.types.ts     # 도메인 특화 타입 (선택)
+│   │   │   ├── todos.router.js
+│   │   │   ├── todos.controller.js
+│   │   │   ├── todos.service.js
+│   │   │   └── todos.repository.js
 │   │   │
 │   │   └── categories/
-│   │       ├── categories.router.ts
-│   │       ├── categories.controller.ts
-│   │       ├── categories.service.ts
-│   │       └── categories.repository.ts
-│   │
-│   ├── types/                    # 공유 TypeScript 타입
-│   │   ├── express.d.ts          # req.user 타입 확장
-│   │   └── common.types.ts       # 공통 타입
+│   │       ├── categories.router.js
+│   │       ├── categories.controller.js
+│   │       ├── categories.service.js
+│   │       └── categories.repository.js
 │   │
 │   ├── utils/                    # 순수 유틸리티 함수
-│   │   ├── jwt.utils.ts
-│   │   └── password.utils.ts
+│   │   ├── jwt.utils.js
+│   │   └── password.utils.js
 │   │
-│   ├── app.ts                    # Express 앱 인스턴스
-│   └── server.ts                 # 서버 실행
+│   ├── app.js                    # Express 앱 인스턴스
+│   └── server.js                 # 서버 실행
 │
 ├── tests/
 │   ├── unit/                     # 단위 테스트
 │   │   └── services/
 │   └── integration/              # 통합 테스트
-│       └── api.e2e.test.ts
+│       └── api.e2e.test.js
 │
 ├── db/
 │   ├── migrations/               # DDL SQL 파일
@@ -1783,10 +1790,9 @@ backend/
 │   │   ├── 002-create-categories.sql
 │   │   └── 003-create-todos.sql
 │   └── seeds/                    # 시드 데이터
-│       └── seed-categories.ts
+│       └── seed-categories.sql
 │
 ├── .env.example
-├── tsconfig.json
 ├── package.json
 └── README.md
 ```
@@ -1797,19 +1803,19 @@ backend/
 
 **역할:** 환경 변수 로드 및 설정 관리
 
-```typescript
-// config/env.ts
-export const config = {
+```javascript
+// config/env.js
+const config = {
   database: {
-    url: process.env.DATABASE_URL!,
-    user: process.env.POSTGRES_USER!,
-    password: process.env.POSTGRES_PASSWORD!,
+    url: process.env.DATABASE_URL,
+    user: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT || '5432'),
-    database: process.env.DB_NAME!
+    database: process.env.DB_NAME
   },
   jwt: {
-    secret: process.env.JWT_SECRET!,
+    secret: process.env.JWT_SECRET,
     expiresIn: process.env.JWT_EXPIRY || '24h'
   },
   server: {
@@ -1821,11 +1827,13 @@ export const config = {
   }
 };
 
-// config/db.ts
-import { Pool } from 'pg';
-import { config } from './env';
+module.exports = { config };
 
-export const db = new Pool({
+// config/db.js
+const { Pool } = require('pg');
+const { config } = require('./env');
+
+const db = new Pool({
   connectionString: config.database.url,
   max: 20,
   idleTimeoutMillis: 30000,
@@ -1836,28 +1844,19 @@ db.on('error', (err) => {
   console.error('DB connection error:', err);
 });
 
-export default db;
+module.exports = db;
 ```
 
 #### `middleware/` 디렉토리
 
 **역할:** Express 미들웨어
 
-```typescript
-// middleware/auth.middleware.ts
-import jwt from 'jsonwebtoken';
-import { Request, Response, NextFunction } from 'express';
-import { config } from '../config/env';
+```javascript
+// middleware/auth.middleware.js
+const jwt = require('jsonwebtoken');
+const { config } = require('../config/env');
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: { id: number; email: string };
-    }
-  }
-}
-
-export function authenticate(req: Request, res: Response, next: NextFunction) {
+function authenticate(req, res, next) {
   const token = req.headers.authorization?.split(' ')[1];
 
   if (!token) {
@@ -1865,7 +1864,7 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
   }
 
   try {
-    const decoded = jwt.verify(token, config.jwt.secret) as { id: number; email: string };
+    const decoded = jwt.verify(token, config.jwt.secret);
     req.user = decoded;
     next();
   } catch (error) {
@@ -1873,13 +1872,10 @@ export function authenticate(req: Request, res: Response, next: NextFunction) {
   }
 }
 
-// middleware/error.middleware.ts
-export function errorHandler(
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
+module.exports = { authenticate };
+
+// middleware/error.middleware.js
+function errorHandler(err, req, res, next) {
   console.error(err);
 
   const isDevelopment = process.env.NODE_ENV === 'development';
@@ -1889,17 +1885,19 @@ export function errorHandler(
     ...(isDevelopment && { error: err.message })
   });
 }
+
+module.exports = { errorHandler };
 ```
 
 #### `modules/` 디렉토리 - 레이어별 코드 예시
 
-```typescript
-// modules/todos/todos.router.ts
-import { Router } from 'express';
-import { TodoController } from './todos.controller';
-import { authenticate } from '../../middleware/auth.middleware';
+```javascript
+// modules/todos/todos.router.js
+const { Router } = require('express');
+const { TodoController } = require('./todos.controller');
+const { authenticate } = require('../../middleware/auth.middleware');
 
-export const todosRouter = Router();
+const todosRouter = Router();
 const controller = new TodoController();
 
 todosRouter.get('/', authenticate, (req, res) => controller.getTodos(req, res));
@@ -1909,16 +1907,19 @@ todosRouter.put('/:id', authenticate, (req, res) => controller.updateTodo(req, r
 todosRouter.patch('/:id/complete', authenticate, (req, res) => controller.completeTodo(req, res));
 todosRouter.delete('/:id', authenticate, (req, res) => controller.deleteTodo(req, res));
 
-// modules/todos/todos.controller.ts
-import { Request, Response } from 'express';
-import { TodoService } from './todos.service';
+module.exports = { todosRouter };
 
-export class TodoController {
-  private todoService = new TodoService();
+// modules/todos/todos.controller.js
+const { TodoService } = require('./todos.service');
 
-  async getTodos(req: Request, res: Response) {
+class TodoController {
+  constructor() {
+    this.todoService = new TodoService();
+  }
+
+  async getTodos(req, res) {
     try {
-      const userId = req.user!.id;
+      const userId = req.user.id;
       const filters = {
         category_id: req.query.category_id ? Number(req.query.category_id) : undefined,
         is_completed: req.query.is_completed ? req.query.is_completed === 'true' : undefined,
@@ -1928,14 +1929,14 @@ export class TodoController {
       const todos = await this.todoService.getTodos(userId, filters);
       res.json({ data: todos });
     } catch (error) {
-      res.status(400).json({ message: (error as Error).message });
+      res.status(400).json({ message: error.message });
     }
   }
 
-  async createTodo(req: Request, res: Response) {
+  async createTodo(req, res) {
     try {
       const { title, description, due_date, category_id } = req.body;
-      const userId = req.user!.id;
+      const userId = req.user.id;
 
       // 입력 검증 (컨트롤러에서 즉시)
       if (!title || typeof title !== 'string' || title.trim().length === 0) {
@@ -1952,44 +1953,40 @@ export class TodoController {
 
       res.status(201).json({ data: todo });
     } catch (error) {
-      res.status(400).json({ message: (error as Error).message });
+      res.status(400).json({ message: error.message });
     }
   }
 
-  async completeTodo(req: Request, res: Response) {
+  async completeTodo(req, res) {
     try {
-      const userId = req.user!.id;
+      const userId = req.user.id;
       const todoId = Number(req.params.id);
 
       const todo = await this.todoService.completeTodo(todoId, userId);
       res.json({ data: todo });
     } catch (error) {
-      res.status(400).json({ message: (error as Error).message });
+      res.status(400).json({ message: error.message });
     }
   }
 }
 
-// modules/todos/todos.service.ts
-import { TodoRepository } from './todos.repository';
-import { CategoryRepository } from '../categories/categories.repository';
+module.exports = { TodoController };
 
-export interface CreateTodoDto {
-  title: string;
-  description?: string;
-  due_date?: string;
-  category_id: number;
-  user_id: number;
-}
+// modules/todos/todos.service.js
+const { TodoRepository } = require('./todos.repository');
+const { CategoryRepository } = require('../categories/categories.repository');
 
-export class TodoService {
-  private todoRepository = new TodoRepository();
-  private categoryRepository = new CategoryRepository();
+class TodoService {
+  constructor() {
+    this.todoRepository = new TodoRepository();
+    this.categoryRepository = new CategoryRepository();
+  }
 
-  async getTodos(userId: number, filters?: any) {
+  async getTodos(userId, filters) {
     return await this.todoRepository.getTodos(userId, filters);
   }
 
-  async createTodo(dto: CreateTodoDto) {
+  async createTodo(dto) {
     // 비즈니스 로직: 카테고리 유효성 확인
     const category = await this.categoryRepository.getById(dto.category_id);
     
@@ -2005,7 +2002,7 @@ export class TodoService {
     return await this.todoRepository.createTodo(dto);
   }
 
-  async completeTodo(todoId: number, userId: number) {
+  async completeTodo(todoId, userId) {
     // 소유권 확인 (서비스에서)
     const todo = await this.todoRepository.getTodoById(todoId);
     
@@ -2024,13 +2021,15 @@ export class TodoService {
   }
 }
 
-// modules/todos/todos.repository.ts
-import db from '../../config/db';
+module.exports = { TodoService };
 
-export class TodoRepository {
-  async getTodos(userId: number, filters?: any) {
+// modules/todos/todos.repository.js
+const db = require('../../config/db');
+
+class TodoRepository {
+  async getTodos(userId, filters) {
     let query = 'SELECT * FROM todos WHERE user_id = $1';
-    const params: any[] = [userId];
+    const params = [userId];
 
     if (filters?.category_id) {
       query += ` AND category_id = $${params.length + 1}`;
@@ -2052,13 +2051,13 @@ export class TodoRepository {
     return result.rows;
   }
 
-  async getTodoById(id: number) {
+  async getTodoById(id) {
     const query = 'SELECT * FROM todos WHERE id = $1';
     const result = await db.query(query, [id]);
     return result.rows[0];
   }
 
-  async createTodo(data: CreateTodoDto) {
+  async createTodo(data) {
     const query = `
       INSERT INTO todos (user_id, category_id, title, description, due_date, is_completed, created_at, updated_at)
       VALUES ($1, $2, $3, $4, $5, FALSE, NOW(), NOW())
@@ -2074,9 +2073,9 @@ export class TodoRepository {
     return result.rows[0];
   }
 
-  async updateTodo(id: number, data: Partial<CreateTodoDto>) {
-    const updates: string[] = [];
-    const params: any[] = [];
+  async updateTodo(id, data) {
+    const updates = [];
+    const params = [];
     let paramIndex = 1;
 
     if (data.title !== undefined) {
@@ -2095,9 +2094,9 @@ export class TodoRepository {
       updates.push(`category_id = $${paramIndex++}`);
       params.push(data.category_id);
     }
-    if ((data as any).is_completed !== undefined) {
+    if (data.is_completed !== undefined) {
       updates.push(`is_completed = $${paramIndex++}`);
-      params.push((data as any).is_completed);
+      params.push(data.is_completed);
     }
 
     updates.push(`updated_at = NOW()`);
@@ -2114,11 +2113,13 @@ export class TodoRepository {
     return result.rows[0];
   }
 
-  async deleteTodo(id: number) {
+  async deleteTodo(id) {
     const query = 'DELETE FROM todos WHERE id = $1';
     await db.query(query, [id]);
   }
 }
+
+module.exports = { TodoRepository };
 ```
 
 ---
@@ -2135,12 +2136,11 @@ todolist-app/
 │   ├── vite.config.ts
 │   └── README.md
 │
-├── backend/               # Node.js + Express 프로젝트
+├── backend/               # Node.js + Express (JavaScript) 프로젝트
 │   ├── src/
 │   ├── tests/
 │   ├── db/
 │   ├── package.json
-│   ├── tsconfig.json
 │   └── README.md
 │
 ├── docs/                  # 문서
@@ -2179,6 +2179,7 @@ todolist-app/
 |------|------|--------|-----------|----------|
 | 1.0 | 2026-05-13 | Architecture Engineer | 최초 작성 | 프로젝트 아키텍처 설계 원칙 문서화 |
 | 1.1 | 2026-05-13 | Architecture Engineer | JWT 토큰 저장 방식 변경: localStorage → Zustand 메모리. useAuthStore에 token/setToken 필드 추가, API 함수 내 getToken() → useAuthStore.getState().token으로 교체 | XSS 취약점 노출 최소화 및 보안 기본값 원칙 적용 |
+| 1.2 | 2026-05-13 | Architecture Engineer | 백엔드 TypeScript 제거: JavaScript(CommonJS)로 변경. 파일 확장자 .ts→.js, tsconfig.json 제거, types/ 디렉토리 제거, 코드 예시 JavaScript로 변환 | 백엔드 개발에서 TypeScript 미사용 결정 |
 
 ---
 
