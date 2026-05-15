@@ -10,6 +10,7 @@ const db = new Pool({
   max: 20,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
+  options: '-c client_encoding=UTF8',
 });
 
 db.on('error', (err) => {
