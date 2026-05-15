@@ -1,0 +1,133 @@
+- generic [ref=e178]:
+  - banner [ref=e179]:
+    - generic [ref=e180]:
+      - generic [ref=e181]: TodoList
+      - generic [ref=e182]:
+        - generic [ref=e183]: 이서연
+        - button "다크 모드로 전환" [ref=e184] [cursor=pointer]:
+          - img [ref=e185]
+        - button "로그아웃" [ref=e187] [cursor=pointer]:
+          - img [ref=e188]
+          - text: 로그아웃
+  - main [ref=e191]:
+    - generic [ref=e192]:
+      - generic [ref=e193]:
+        - generic [ref=e194]:
+          - button "전체" [ref=e195] [cursor=pointer]
+          - button "업무" [ref=e196] [cursor=pointer]
+          - button "개인" [ref=e197] [cursor=pointer]
+          - button "쇼핑" [ref=e198] [cursor=pointer]
+          - button "기타" [ref=e199] [cursor=pointer]
+        - generic [ref=e200]:
+          - generic [ref=e201]:
+            - generic [ref=e202]: 완료 상태
+            - combobox "완료 상태" [ref=e203]:
+              - option "전체" [selected]
+              - option "미완료"
+              - option "완료"
+          - generic [ref=e204]:
+            - generic [ref=e205]: 종료예정일
+            - generic [ref=e206]:
+              - textbox "종료예정일 시작" [ref=e207]
+              - generic [ref=e208]: ~
+              - textbox "종료예정일 종료" [ref=e209]
+          - generic [ref=e210] [cursor=pointer]:
+            - checkbox "기한 초과" [ref=e211]
+            - generic [ref=e212]: 기한 초과
+      - generic [ref=e213]:
+        - generic [ref=e215] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e216]
+          - generic [ref=e217]:
+            - paragraph [ref=e218]: 여름 여행 계획 세우기
+            - paragraph [ref=e219]: 제주도 2박 3일 일정 초안 작성
+            - generic [ref=e220]:
+              - generic [ref=e221]: 기타
+              - generic [ref=e222]:
+                - img [ref=e223]
+                - text: 2026-05-31
+        - generic [ref=e226] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e227]
+          - generic [ref=e228]:
+            - paragraph [ref=e229]: 방 청소 및 정리
+            - generic [ref=e230]:
+              - generic [ref=e231]: 개인
+              - generic [ref=e232]:
+                - img [ref=e233]
+                - text: 2026-05-17
+        - generic [ref=e236] [cursor=pointer]:
+          - checkbox "완료 취소" [checked] [ref=e237]
+          - generic [ref=e238]:
+            - paragraph [ref=e239]: 식료품 장보기
+            - paragraph [ref=e240]: 주간 식재료 구입
+            - generic [ref=e241]:
+              - generic [ref=e242]: 쇼핑
+              - generic [ref=e243]:
+                - img [ref=e244]
+                - text: 2026-05-16
+        - generic [ref=e247] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e248]
+          - generic [ref=e249]:
+            - paragraph [ref=e250]: 핸드폰 케이스 구매
+            - paragraph [ref=e251]: 갤럭시 S25 투명 케이스
+            - generic [ref=e253]: 쇼핑
+        - generic [ref=e255] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e256]
+          - generic [ref=e257]:
+            - paragraph [ref=e258]: 아르바이트 스케줄 확인
+            - paragraph [ref=e259]: 카페 5월 3주차 근무표 확인
+            - generic [ref=e260]:
+              - generic [ref=e261]: 기타
+              - generic [ref=e262]:
+                - img [ref=e263]
+                - text: 2026-05-16
+        - generic [ref=e266] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e267]
+          - generic [ref=e268]:
+            - paragraph [ref=e269]: 요가 클래스 등록
+            - generic [ref=e270]:
+              - generic [ref=e271]: 개인
+              - generic [ref=e272]:
+                - img [ref=e273]
+                - text: 2026-05-19
+        - generic [ref=e276] [cursor=pointer]:
+          - checkbox "완료 취소" [checked] [ref=e277]
+          - generic [ref=e278]:
+            - paragraph [ref=e279]: 독서 모임 책 읽기
+            - paragraph [ref=e280]: 이번 달 선정 도서 - 사피엔스
+            - generic [ref=e281]:
+              - generic [ref=e282]: 개인
+              - generic [ref=e283]:
+                - img [ref=e284]
+                - text: 2026-05-24
+        - generic [ref=e287] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e288]
+          - generic [ref=e289]:
+            - paragraph [ref=e290]: 기말 프로젝트 발표 자료 작성
+            - paragraph [ref=e291]: 쇼핑몰 웹앱 개발 결과 발표 PPT
+            - generic [ref=e292]:
+              - generic [ref=e293]: 개인
+              - generic [ref=e294]:
+                - img [ref=e295]
+                - text: 2026-05-28
+        - generic [ref=e298] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e299]
+          - generic [ref=e300]:
+            - paragraph [ref=e301]: 알고리즘 스터디 준비
+            - paragraph [ref=e302]: 그래프 탐색 BFS/DFS 정리
+            - generic [ref=e303]:
+              - generic [ref=e304]: 개인
+              - generic [ref=e305]:
+                - img [ref=e306]
+                - text: 2026-05-17
+        - generic [ref=e309] [cursor=pointer]:
+          - checkbox "완료 취소" [checked] [ref=e310]
+          - generic [ref=e311]:
+            - paragraph [ref=e312]: 데이터베이스 과제 제출
+            - paragraph [ref=e313]: 3NF 정규화 설계 보고서 제출
+            - generic [ref=e314]:
+              - generic [ref=e315]: 개인
+              - generic [ref=e316]:
+                - img [ref=e317]
+                - text: 2026-05-18
+  - button "새 할일 추가" [ref=e319] [cursor=pointer]:
+    - img [ref=e320]

@@ -1,0 +1,20 @@
+- generic [ref=e164]:
+  - generic [ref=e165]:
+    - heading "TodoList" [level=1] [ref=e166]
+    - paragraph [ref=e167]: 로그인하여 할일을 관리하세요
+  - generic [ref=e168]:
+    - generic [ref=e169]:
+      - generic [ref=e170]: 이메일
+      - textbox "이메일" [ref=e171]:
+        - /placeholder: name@example.com
+        - text: minjun@sample.com
+    - generic [ref=e172]:
+      - generic [ref=e173]: 비밀번호
+      - textbox "비밀번호" [ref=e174]:
+        - /placeholder: 비밀번호 입력
+        - text: TestPass123!
+    - button "로그인" [ref=e175] [cursor=pointer]
+  - paragraph [ref=e176]:
+    - text: 계정이 없으신가요?
+    - link "회원가입" [ref=e177] [cursor=pointer]:
+      - /url: /register

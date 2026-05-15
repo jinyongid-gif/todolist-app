@@ -1,0 +1,39 @@
+- generic [ref=e18]:
+  - banner [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]: TodoList
+      - generic [ref=e22]:
+        - generic [ref=e23]: 김민준
+        - button "다크 모드로 전환" [ref=e24] [cursor=pointer]:
+          - img [ref=e25]
+        - button "로그아웃" [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+          - text: 로그아웃
+  - main [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - button "전체" [ref=e35] [cursor=pointer]
+          - button "업무" [ref=e36] [cursor=pointer]
+          - button "개인" [ref=e37] [cursor=pointer]
+          - button "쇼핑" [ref=e38] [cursor=pointer]
+          - button "기타" [ref=e39] [cursor=pointer]
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]: 완료 상태
+            - combobox "완료 상태" [ref=e43]:
+              - option "전체" [selected]
+              - option "미완료"
+              - option "완료"
+          - generic [ref=e44]:
+            - generic [ref=e45]: 종료예정일
+            - generic [ref=e46]:
+              - textbox "종료예정일 시작" [ref=e47]
+              - generic [ref=e48]: ~
+              - textbox "종료예정일 종료" [ref=e49]
+          - generic [ref=e50] [cursor=pointer]:
+            - checkbox "기한 초과" [ref=e51]
+            - generic [ref=e52]: 기한 초과
+      - img [ref=e54]
+  - button "새 할일 추가" [ref=e56] [cursor=pointer]:
+    - img [ref=e57]

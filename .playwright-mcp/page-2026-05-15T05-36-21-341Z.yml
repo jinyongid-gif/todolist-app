@@ -1,0 +1,133 @@
+- generic [ref=e18]:
+  - banner [ref=e19]:
+    - generic [ref=e20]:
+      - generic [ref=e21]: TodoList
+      - generic [ref=e22]:
+        - generic [ref=e23]: �����
+        - button "다크 모드로 전환" [ref=e24] [cursor=pointer]:
+          - img [ref=e25]
+        - button "로그아웃" [ref=e27] [cursor=pointer]:
+          - img [ref=e28]
+          - text: 로그아웃
+  - main [ref=e31]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]:
+          - button "전체" [ref=e35] [cursor=pointer]
+          - button "업무" [ref=e36] [cursor=pointer]
+          - button "개인" [ref=e37] [cursor=pointer]
+          - button "쇼핑" [ref=e38] [cursor=pointer]
+          - button "기타" [ref=e39] [cursor=pointer]
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - generic [ref=e42]: 완료 상태
+            - combobox "완료 상태" [ref=e43]:
+              - option "전체" [selected]
+              - option "미완료"
+              - option "완료"
+          - generic [ref=e44]:
+            - generic [ref=e45]: 종료예정일
+            - generic [ref=e46]:
+              - textbox "종료예정일 시작" [ref=e47]
+              - generic [ref=e48]: ~
+              - textbox "종료예정일 종료" [ref=e49]
+          - generic [ref=e50] [cursor=pointer]:
+            - checkbox "기한 초과" [ref=e51]
+            - generic [ref=e52]: 기한 초과
+      - generic [ref=e53]:
+        - generic [ref=e55] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e56]
+          - generic [ref=e57]:
+            - paragraph [ref=e58]: ��Ʈ�� ������ �ֹ�
+            - generic [ref=e59]:
+              - generic [ref=e60]: 쇼핑
+              - generic [ref=e61]:
+                - img [ref=e62]
+                - text: 2026-05-16
+        - generic [ref=e65] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e66]
+          - generic [ref=e67]:
+            - paragraph [ref=e68]: ���� ���� ����
+            - paragraph [ref=e69]: ģ�� ���� ���� - ��� �Ǵ� ����
+            - generic [ref=e70]:
+              - generic [ref=e71]: 쇼핑
+              - generic [ref=e72]:
+                - img [ref=e73]
+                - text: 2026-05-25
+        - generic [ref=e76] [cursor=pointer]:
+          - checkbox "완료 취소" [checked] [ref=e77]
+          - generic [ref=e78]:
+            - paragraph [ref=e79]: Ŭ���ڵ� ����
+            - paragraph [ref=e80]: Chapter 5~8 �ϵ�
+            - generic [ref=e82]: 개인
+        - generic [ref=e84] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e85]
+          - generic [ref=e86]:
+            - paragraph [ref=e87]: �ｺ�� ���
+            - generic [ref=e88]:
+              - generic [ref=e89]: 개인
+              - generic [ref=e90]:
+                - img [ref=e91]
+                - text: 2026-05-18
+        - generic [ref=e94] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e95]
+          - generic [ref=e96]:
+            - paragraph [ref=e97]: �ڵ� ���� �Ϸ�
+            - paragraph [ref=e98]: "PR #142 �鿣�� ���� ��� ����"
+            - generic [ref=e99]:
+              - generic [ref=e100]: 업무
+              - generic [ref=e101]:
+                - img [ref=e102]
+                - text: 2026-05-17
+        - generic [ref=e105] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e106]
+          - generic [ref=e107]:
+            - paragraph [ref=e108]: ���� ���� ��û
+            - paragraph [ref=e109]: Q2 ������ ����� CFO ���� ����
+            - generic [ref=e110]:
+              - generic [ref=e111]: 업무
+              - generic [ref=e112]:
+                - img [ref=e113]
+                - text: 2026-05-19
+        - generic [ref=e116] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e117]
+          - generic [ref=e118]:
+            - paragraph [ref=e119]: ������Ʈ ��ȹ�� ����
+            - paragraph [ref=e120]: �ű� ������Ʈ ���� �� ���ҽ� ��ȹ ����
+            - generic [ref=e121]:
+              - generic [ref=e122]: 업무
+              - generic [ref=e123]:
+                - img [ref=e124]
+                - text: 2026-05-22
+        - generic [ref=e127] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e128]
+          - generic [ref=e129]:
+            - paragraph [ref=e130]: Ŭ���̾�Ʈ �̸��� ����
+            - paragraph [ref=e131]: A�� ���ȼ� ���� ��� ȸ��
+            - generic [ref=e132]:
+              - generic [ref=e133]: 업무
+              - generic [ref=e134]:
+                - img [ref=e135]
+                - text: 2026-05-15
+        - generic [ref=e138] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e139]
+          - generic [ref=e140]:
+            - paragraph [ref=e141]: �� ���� �غ�
+            - paragraph [ref=e142]: �ְ� ������Ʈ ȸ�� ������ ����
+            - generic [ref=e143]:
+              - generic [ref=e144]: 업무
+              - generic [ref=e145]:
+                - img [ref=e146]
+                - text: 2026-05-16
+        - generic [ref=e149] [cursor=pointer]:
+          - checkbox "완료 표시" [ref=e150]
+          - generic [ref=e151]:
+            - paragraph [ref=e152]: �б⺰ ������ �ۼ�
+            - paragraph [ref=e153]: Q1 ���� �м� �� CFO ������ �ڷ� �ۼ�
+            - generic [ref=e154]:
+              - generic [ref=e155]: 업무
+              - generic [ref=e156]:
+                - img [ref=e157]
+                - text: 2026-05-20
+  - button "새 할일 추가" [ref=e159] [cursor=pointer]:
+    - img [ref=e160]
