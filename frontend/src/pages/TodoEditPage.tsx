@@ -34,9 +34,9 @@ export default function TodoEditPage() {
 
   if (isError) {
     return (
-      <div className="min-h-screen bg-neutral-100 flex items-center justify-center" data-testid="todo-edit-page">
+      <div className="min-h-screen bg-neutral-100 dark:bg-neutral-900 flex items-center justify-center" data-testid="todo-edit-page">
         <div className="text-center">
-          <p className="text-neutral-500 mb-4">할일을 찾을 수 없습니다.</p>
+          <p className="text-neutral-500 dark:text-neutral-400 mb-4">할일을 찾을 수 없습니다.</p>
           <button onClick={() => navigate('/todos')} className="text-primary-600 hover:underline text-sm">
             목록으로 돌아가기
           </button>
@@ -84,18 +84,18 @@ export default function TodoEditPage() {
   }
 
   return (
-    <div className="min-h-screen bg-neutral-100" data-testid="todo-edit-page">
-      <header className="sticky top-0 z-50 bg-white shadow-sm h-[60px] flex items-center px-4 md:px-6">
+    <div className="min-h-screen bg-neutral-100 dark:bg-neutral-900" data-testid="todo-edit-page">
+      <header className="sticky top-0 z-50 bg-white dark:bg-neutral-800 shadow-sm h-[60px] flex items-center px-4 md:px-6">
         <div className="w-full max-w-[1200px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('/todos')}
-              className="text-neutral-500 hover:text-neutral-900 transition-colors"
+              className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
               aria-label="뒤로가기"
             >
               <ArrowLeft size={20} strokeWidth={1.5} />
             </button>
-            <span className="text-base font-semibold text-neutral-900">할일 수정</span>
+            <span className="text-base font-semibold text-neutral-900 dark:text-white">할일 수정</span>
           </div>
         </div>
       </header>
@@ -108,9 +108,9 @@ export default function TodoEditPage() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate>
-              <div className="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-4">
+              <div className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm p-6 flex flex-col gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
                     제목 <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -118,30 +118,30 @@ export default function TodoEditPage() {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="할일 제목을 입력하세요"
-                    className={`w-full h-10 border rounded px-3 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-primary-500 transition-colors ${titleError ? 'border-red-500' : 'border-neutral-300'}`}
+                    className={`w-full h-10 border rounded px-3 text-sm text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:border-primary-500 transition-colors ${titleError ? 'border-red-500' : 'border-neutral-300 dark:border-neutral-600'}`}
                   />
                   {titleError && <p className="text-xs text-red-500 mt-1">{titleError}</p>}
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">설명</label>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">설명</label>
                   <textarea
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="상세 설명을 입력하세요 (선택)"
                     rows={3}
-                    className="w-full border border-neutral-300 rounded px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:outline-none focus:border-primary-500 transition-colors resize-none"
+                    className="w-full border border-neutral-300 dark:border-neutral-600 rounded px-3 py-2 text-sm text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 placeholder-neutral-400 dark:placeholder-neutral-500 focus:outline-none focus:border-primary-500 transition-colors resize-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1">
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
                     카테고리 <span className="text-red-500">*</span>
                   </label>
                   <select
                     value={categoryId}
                     onChange={(e) => setCategoryId(e.target.value)}
-                    className={`w-full h-10 border rounded px-3 text-sm text-neutral-900 focus:outline-none focus:border-primary-500 transition-colors bg-white ${categoryError ? 'border-red-500' : 'border-neutral-300'}`}
+                    className={`w-full h-10 border rounded px-3 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-primary-500 transition-colors bg-white dark:bg-neutral-800 ${categoryError ? 'border-red-500' : 'border-neutral-300 dark:border-neutral-600'}`}
                   >
                     <option value="">카테고리 선택</option>
                     {categories.map((cat) => (
@@ -152,13 +152,13 @@ export default function TodoEditPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1" htmlFor="edit-due-date">종료예정일</label>
+                  <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1" htmlFor="edit-due-date">종료예정일</label>
                   <input
                     id="edit-due-date"
                     type="date"
                     value={dueDate}
                     onChange={(e) => setDueDate(e.target.value)}
-                    className="w-full h-10 border border-neutral-300 rounded px-3 text-sm text-neutral-900 focus:outline-none focus:border-primary-500 transition-colors"
+                    className="w-full h-10 border border-neutral-300 dark:border-neutral-600 rounded px-3 text-sm text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500 transition-colors"
                   />
                 </div>
 
@@ -170,14 +170,14 @@ export default function TodoEditPage() {
                     onClick={() => setShowDeleteModal(true)}
                     disabled={deleteMutation.isPending}
                     aria-label="삭제"
-                    className="h-10 px-4 border border-red-300 text-red-500 hover:bg-red-50 rounded text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="h-10 px-4 border border-red-300 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     삭제
                   </button>
                   <button
                     type="button"
                     onClick={() => navigate('/todos')}
-                    className="flex-1 h-10 border border-neutral-300 text-neutral-700 hover:bg-neutral-50 rounded text-sm font-medium transition-colors"
+                    className="flex-1 h-10 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded text-sm font-medium transition-colors"
                   >
                     취소
                   </button>
@@ -198,13 +198,13 @@ export default function TodoEditPage() {
 
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-sm w-full mx-4 shadow-lg">
-            <h2 className="text-lg font-semibold text-neutral-900 mb-2">할일 삭제</h2>
-            <p className="text-sm text-neutral-500 mb-6">이 할일을 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.</p>
+          <div className="bg-white dark:bg-neutral-800 rounded-xl p-6 max-w-sm w-full mx-4 shadow-lg">
+            <h2 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">할일 삭제</h2>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-6">이 할일을 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.</p>
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2.5 border border-neutral-300 text-neutral-700 hover:bg-neutral-50 rounded text-sm font-medium transition-colors"
+                className="px-4 py-2.5 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-700 rounded text-sm font-medium transition-colors"
               >
                 취소
               </button>

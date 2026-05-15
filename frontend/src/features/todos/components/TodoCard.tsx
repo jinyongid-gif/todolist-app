@@ -14,7 +14,7 @@ export default function TodoCard({ todo, category, onToggle, onEdit }: TodoCardP
   const overdue = isOverdue(todo.due_date, todo.is_completed)
   return (
     <div
-      className="bg-white rounded-xl shadow-sm px-6 py-5 hover:shadow hover:-translate-y-px transition-all duration-200 cursor-pointer"
+      className="bg-white dark:bg-neutral-800 rounded-xl shadow-sm px-6 py-5 hover:shadow hover:-translate-y-px transition-all duration-200 cursor-pointer"
       onClick={() => onEdit(todo.id)}
     >
       <div className="flex items-start gap-3">
@@ -23,15 +23,15 @@ export default function TodoCard({ todo, category, onToggle, onEdit }: TodoCardP
           checked={todo.is_completed}
           onChange={() => onToggle(todo.id)}
           onClick={(e) => e.stopPropagation()}
-          className="mt-0.5 h-[18px] w-[18px] rounded border-2 border-neutral-300 accent-primary-600 cursor-pointer flex-shrink-0"
+          className="mt-0.5 h-[18px] w-[18px] rounded border-2 border-neutral-300 dark:border-neutral-600 accent-primary-600 cursor-pointer flex-shrink-0"
           aria-label={todo.is_completed ? '완료 취소' : '완료 표시'}
         />
         <div className="flex-1 min-w-0">
-          <p className={`text-base font-medium ${todo.is_completed ? 'line-through text-neutral-400' : 'text-neutral-900'}`}>
+          <p className={`text-base font-medium ${todo.is_completed ? 'line-through text-neutral-400 dark:text-neutral-500' : 'text-neutral-900 dark:text-white'}`}>
             {todo.title}
           </p>
           {todo.description && (
-            <p className="text-sm text-neutral-500 mt-0.5 truncate">{todo.description}</p>
+            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-0.5 truncate">{todo.description}</p>
           )}
           <div className="flex items-center gap-2 mt-2 flex-wrap">
             {category && (
@@ -40,7 +40,7 @@ export default function TodoCard({ todo, category, onToggle, onEdit }: TodoCardP
               </span>
             )}
             {todo.due_date && (
-              <span className={`flex items-center gap-1 text-xs ${overdue ? 'text-red-500' : todo.is_completed ? 'text-neutral-400 line-through' : 'text-neutral-500'}`}>
+              <span className={`flex items-center gap-1 text-xs ${overdue ? 'text-red-500' : todo.is_completed ? 'text-neutral-400 dark:text-neutral-500 line-through' : 'text-neutral-500 dark:text-neutral-400'}`}>
                 <Calendar size={14} strokeWidth={1.5} />
                 {todo.due_date}
               </span>

@@ -9,6 +9,10 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60,
+      retry: (failureCount, error: any) => {
+        if (error?.status >= 400 && error?.status < 500) return false
+        return failureCount < 3
+      },
     },
   },
 })

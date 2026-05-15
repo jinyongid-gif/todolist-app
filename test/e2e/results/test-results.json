@@ -1,0 +1,1650 @@
+{
+  "config": {
+    "configFile": "C:\\_vibe\\todolist-app\\test\\e2e\\playwright.config.ts",
+    "rootDir": "C:/_vibe/todolist-app/test/e2e/specs",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/_vibe/todolist-app/test/e2e/results/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/_vibe/todolist-app/test/e2e/specs",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "./results/html-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "./results/test-results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.60.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "debug.spec.ts",
+      "file": "debug.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "서버 접근 확인",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 837,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "Status: \u001b[33m200\u001b[39m\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-05-15T01:26:06.474Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "5ee6126738e1012db859-ac576b27a872813d16f5",
+          "file": "debug.spec.ts",
+          "line": 3,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "e2e-scenarios.spec.ts",
+      "file": "e2e-scenarios.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "E2E-01: 김지우의 업무 관리 플로우",
+          "file": "e2e-scenarios.spec.ts",
+          "line": 12,
+          "column": 6,
+          "specs": [
+            {
+              "title": "업무 할일 등록 → 완료 처리 → 수정 → 필터링 → 로그아웃",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 2033,
+                      "error": {
+                        "message": "Error: locator.fill: Error: strict mode violation: locator('input[type=\"date\"]') resolved to 2 elements:\n    1) <input value=\"\" type=\"date\" aria-label=\"종료예정일 시작\" id=\"filter-due-date-from\" class=\"h-10 rounded border border-neutral-300 dark:border-neutral-600 px-3 text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500\"/> aka getByRole('textbox', { name: '종료예정일 시작' })\n    2) <input value=\"\" type=\"date\" aria-label=\"종료예정일 종료\" id=\"filter-due-date-to\" class=\"h-10 rounded border border-neutral-300 dark:border-neutral-600 px-3 text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500\"/> aka getByRole('textbox', { name: '종료예정일 종료' })\n\nCall log:\n\u001b[2m  - waiting for locator('input[type=\"date\"]')\u001b[22m\n",
+                        "stack": "Error: locator.fill: Error: strict mode violation: locator('input[type=\"date\"]') resolved to 2 elements:\n    1) <input value=\"\" type=\"date\" aria-label=\"종료예정일 시작\" id=\"filter-due-date-from\" class=\"h-10 rounded border border-neutral-300 dark:border-neutral-600 px-3 text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500\"/> aka getByRole('textbox', { name: '종료예정일 시작' })\n    2) <input value=\"\" type=\"date\" aria-label=\"종료예정일 종료\" id=\"filter-due-date-to\" class=\"h-10 rounded border border-neutral-300 dark:border-neutral-600 px-3 text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500\"/> aka getByRole('textbox', { name: '종료예정일 종료' })\n\nCall log:\n\u001b[2m  - waiting for locator('input[type=\"date\"]')\u001b[22m\n\n    at C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts:52:24",
+                        "location": {
+                          "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts",
+                          "column": 24,
+                          "line": 52
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 50 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[35m/\\/edit/\u001b[39m)\n \u001b[90m 51 |\u001b[39m     \u001b[36mconst\u001b[39m dueDateInput \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'input[type=\"date\"]'\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 52 |\u001b[39m     \u001b[36mawait\u001b[39m dueDateInput\u001b[33m.\u001b[39mfill(\u001b[32m'2030-05-19'\u001b[39m)\n \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 53 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgetByRole(\u001b[32m'button'\u001b[39m\u001b[33m,\u001b[39m { name\u001b[33m:\u001b[39m \u001b[32m'저장'\u001b[39m })\u001b[33m.\u001b[39mclick()\n \u001b[90m 54 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mwaitForURL(\u001b[35m/\\/todos$/\u001b[39m)\n \u001b[90m 55 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts",
+                            "column": 24,
+                            "line": 52
+                          },
+                          "message": "Error: locator.fill: Error: strict mode violation: locator('input[type=\"date\"]') resolved to 2 elements:\n    1) <input value=\"\" type=\"date\" aria-label=\"종료예정일 시작\" id=\"filter-due-date-from\" class=\"h-10 rounded border border-neutral-300 dark:border-neutral-600 px-3 text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500\"/> aka getByRole('textbox', { name: '종료예정일 시작' })\n    2) <input value=\"\" type=\"date\" aria-label=\"종료예정일 종료\" id=\"filter-due-date-to\" class=\"h-10 rounded border border-neutral-300 dark:border-neutral-600 px-3 text-sm text-neutral-700 dark:text-neutral-300 bg-white dark:bg-neutral-800 focus:outline-none focus:border-primary-500\"/> aka getByRole('textbox', { name: '종료예정일 종료' })\n\nCall log:\n\u001b[2m  - waiting for locator('input[type=\"date\"]')\u001b[22m\n\n\n  50 |     await expect(page).toHaveURL(/\\/edit/)\n  51 |     const dueDateInput = page.locator('input[type=\"date\"]')\n> 52 |     await dueDateInput.fill('2030-05-19')\n     |                        ^\n  53 |     await page.getByRole('button', { name: '저장' }).click()\n  54 |     await page.waitForURL(/\\/todos$/)\n  55 |\n    at C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts:52:24"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:07.435Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\e2e-scenarios-E2E-01-김지우의--4c427-록-→-완료-처리-→-수정-→-필터링-→-로그아웃-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\e2e-scenarios-E2E-01-김지우의--4c427-록-→-완료-처리-→-수정-→-필터링-→-로그아웃-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts",
+                        "column": 24,
+                        "line": 52
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "977fbb8ae2eeca0541f5-59ef502456265ddc1549",
+              "file": "e2e-scenarios.spec.ts",
+              "line": 13,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "E2E-02: 박서준의 학업 관리 플로우",
+          "file": "e2e-scenarios.spec.ts",
+          "line": 66,
+          "column": 6,
+          "specs": [
+            {
+              "title": "카테고리 필터 → 완료 처리 → 수정 → 완료 목록 조회",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 3123,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:09.987Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "977fbb8ae2eeca0541f5-a03ebe89f360ebaa88ff",
+              "file": "e2e-scenarios.spec.ts",
+              "line": 67,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "다크모드 (추가 기능)",
+          "file": "e2e-scenarios.spec.ts",
+          "line": 130,
+          "column": 6,
+          "specs": [
+            {
+              "title": "다크모드 토글 → html 태그에 dark 클래스 적용",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1057,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:13.216Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "977fbb8ae2eeca0541f5-f0e30f0348d881e03b83",
+              "file": "e2e-scenarios.spec.ts",
+              "line": 131,
+              "column": 7
+            },
+            {
+              "title": "다크모드 상태가 사용자별 localStorage에 저장됨",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1319,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:14.284Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "977fbb8ae2eeca0541f5-a70eb596870f52db502e",
+              "file": "e2e-scenarios.spec.ts",
+              "line": 151,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "크로스 시나리오: 데이터 접근 제어",
+          "file": "e2e-scenarios.spec.ts",
+          "line": 174,
+          "column": 6,
+          "specs": [
+            {
+              "title": "TC-AUTH-01: 다른 사용자의 할일 접근 불가",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 12187,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('할일을 찾을 수 없습니다.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('할일을 찾을 수 없습니다.')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('할일을 찾을 수 없습니다.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('할일을 찾을 수 없습니다.')\u001b[22m\n\n    at C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts:203:53",
+                        "location": {
+                          "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts",
+                          "column": 53,
+                          "line": 203
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 201 |\u001b[39m\n \u001b[90m 202 |\u001b[39m     \u001b[90m// 에러 메시지 표시 (403 or 404 → \"할일을 찾을 수 없습니다.\" 표시)\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 203 |\u001b[39m     \u001b[36mawait\u001b[39m expect(pageB\u001b[33m.\u001b[39mgetByText(\u001b[32m'할일을 찾을 수 없습니다.'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible({ timeout\u001b[33m:\u001b[39m \u001b[35m10000\u001b[39m })\n \u001b[90m     |\u001b[39m                                                     \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 204 |\u001b[39m     \u001b[36mawait\u001b[39m pageB\u001b[33m.\u001b[39mclose()\n \u001b[90m 205 |\u001b[39m   })\n \u001b[90m 206 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts",
+                            "column": 53,
+                            "line": 203
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('할일을 찾을 수 없습니다.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('할일을 찾을 수 없습니다.')\u001b[22m\n\n\n  201 |\n  202 |     // 에러 메시지 표시 (403 or 404 → \"할일을 찾을 수 없습니다.\" 표시)\n> 203 |     await expect(pageB.getByText('할일을 찾을 수 없습니다.')).toBeVisible({ timeout: 10000 })\n      |                                                     ^\n  204 |     await pageB.close()\n  205 |   })\n  206 |\n    at C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts:203:53"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:15.613Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\e2e-scenarios-크로스-시나리오-데이터-접근-제어-TC-AUTH-01-다른-사용자의-할일-접근-불가-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\e2e-scenarios-크로스-시나리오-데이터-접근-제어-TC-AUTH-01-다른-사용자의-할일-접근-불가-chromium\\test-failed-2.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\e2e-scenarios-크로스-시나리오-데이터-접근-제어-TC-AUTH-01-다른-사용자의-할일-접근-불가-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\e2e-scenarios.spec.ts",
+                        "column": 53,
+                        "line": 203
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "977fbb8ae2eeca0541f5-0f77c3b92f9d453f1200",
+              "file": "e2e-scenarios.spec.ts",
+              "line": 175,
+              "column": 7
+            },
+            {
+              "title": "TC-AUTH-02: 자신의 할일만 목록에 표시",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2125,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:28.326Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "977fbb8ae2eeca0541f5-e0783b78b1f421275417",
+              "file": "e2e-scenarios.spec.ts",
+              "line": 207,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uc01-register.spec.ts",
+      "file": "uc01-register.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "UC-01 회원가입",
+          "file": "uc01-register.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-01-01: 신규 사용자 회원가입 완료",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 845,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:30.559Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "67d794ce1b81f4e01622-e19a7f734fe03256acfd",
+              "file": "uc01-register.spec.ts",
+              "line": 9,
+              "column": 7
+            },
+            {
+              "title": "EC-01-01: 이미 가입된 이메일로 재가입 시도 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1056,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:31.414Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "67d794ce1b81f4e01622-ab3e09631174cf5459ad",
+              "file": "uc01-register.spec.ts",
+              "line": 22,
+              "column": 7
+            },
+            {
+              "title": "EC-01-02: 잘못된 이메일 형식 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 863,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:32.480Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "67d794ce1b81f4e01622-0f6a77d4e3ca160afc03",
+              "file": "uc01-register.spec.ts",
+              "line": 44,
+              "column": 7
+            },
+            {
+              "title": "EC-01-03: 필수 필드 미입력 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 798,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:33.352Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "67d794ce1b81f4e01622-774e37495712c281dc66",
+              "file": "uc01-register.spec.ts",
+              "line": 55,
+              "column": 7
+            },
+            {
+              "title": "AC-01-01: 로그인 화면의 회원가입 링크 → 회원가입 화면 진입",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 765,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:34.161Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "67d794ce1b81f4e01622-1e590056575d943856b4",
+              "file": "uc01-register.spec.ts",
+              "line": 66,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uc02-login.spec.ts",
+      "file": "uc02-login.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "UC-02 로그인",
+          "file": "uc02-login.spec.ts",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-02-01: 유효한 이메일·비밀번호로 로그인 성공 → 할일 목록 화면 이동",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 858,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:34.941Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-87dd6b0cc02b09c4e963",
+              "file": "uc02-login.spec.ts",
+              "line": 24,
+              "column": 7
+            },
+            {
+              "title": "EC-02-01: 존재하지 않는 이메일 로그인 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 815,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:36.635Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-447f8c2b5e5309458eb5",
+              "file": "uc02-login.spec.ts",
+              "line": 37,
+              "column": 7
+            },
+            {
+              "title": "EC-02-02: 잘못된 비밀번호 로그인 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 831,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:37.460Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-c4a5d36924cd4be889a4",
+              "file": "uc02-login.spec.ts",
+              "line": 47,
+              "column": 7
+            },
+            {
+              "title": "EC-02-03: 비밀번호 필드 공란 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 792,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:38.300Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-7b57164a2e8665cc7d6d",
+              "file": "uc02-login.spec.ts",
+              "line": 57,
+              "column": 7
+            },
+            {
+              "title": "보안: 비인증 상태에서 /todos 접근 → /login으로 리다이렉트",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 757,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:39.106Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-605951137c999ef2865d",
+              "file": "uc02-login.spec.ts",
+              "line": 67,
+              "column": 7
+            },
+            {
+              "title": "보안: 로그인 상태에서 /todos 유지 확인",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 935,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:39.871Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-af8448648ff6691454d6",
+              "file": "uc02-login.spec.ts",
+              "line": 72,
+              "column": 7
+            },
+            {
+              "title": "AC-02-01: 회원가입 화면의 로그인 링크 → 로그인 화면 진입",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 763,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:40.816Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-e912caa7b7665b18a388",
+              "file": "uc02-login.spec.ts",
+              "line": 78,
+              "column": 7
+            },
+            {
+              "title": "로그아웃 후 /login으로 이동 및 토큰 초기화 확인",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1020,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:41.588Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "08f6cea0d7c47edd30fb-9e8e9bc1a97fa71bcb29",
+              "file": "uc02-login.spec.ts",
+              "line": 84,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "uc05-09-todos.spec.ts",
+      "file": "uc05-09-todos.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "UC-05 할일 등록",
+          "file": "uc05-09-todos.spec.ts",
+          "line": 10,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-05-01: 필수 정보(제목+카테고리)만 입력하여 할일 등록",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1120,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:42.621Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-9b45ffe6a72530092018",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 19,
+              "column": 7
+            },
+            {
+              "title": "MC-05-02: 모든 정보 입력하여 할일 등록",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1157,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:43.750Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-78cef083c5f1bded2936",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 31,
+              "column": 7
+            },
+            {
+              "title": "EC-05-01: 제목 미입력 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1075,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:44.917Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-0cfa1b3a319ab86d5481",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 44,
+              "column": 7
+            },
+            {
+              "title": "AC-05-01: FAB 버튼 클릭 → 할일 등록 화면 진입",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1023,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:46.001Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-70105f99dd04a9a57b4e",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 53,
+              "column": 7
+            },
+            {
+              "title": "취소 버튼 클릭 → 목록으로 복귀, 할일 미저장",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1107,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:47.034Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-d8f13cdf6a3c874831f3",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 59,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "UC-06 할일 목록 조회 및 필터링",
+          "file": "uc05-09-todos.spec.ts",
+          "line": 69,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-06-01: 필터 없이 전체 할일 목록 조회",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1429,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:48.150Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-3399bbb036ac22a0d0a1",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 91,
+              "column": 7
+            },
+            {
+              "title": "MC-06-02: 카테고리 필터 → 해당 카테고리만 표시",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1413,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:49.590Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-4c452f775938592734f4",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 97,
+              "column": 7
+            },
+            {
+              "title": "MC-06-03: 완료 여부 필터 → 미완료만 표시",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1730,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:51.012Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-22dc2ea5a7bc97d794a3",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 105,
+              "column": 7
+            },
+            {
+              "title": "MC-06-03: 완료 여부 필터 → 완료만 표시",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1722,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:52.751Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-f26f6e50f09cd99498bf",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 119,
+              "column": 7
+            },
+            {
+              "title": "AC-06-01: 할일이 없을 때 빈 상태 메시지 표시",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1757,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:54.482Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-256a1d92b2d8e76a4e62",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 130,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "UC-07 할일 수정",
+          "file": "uc05-09-todos.spec.ts",
+          "line": 142,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-07-01: 할일 카드 클릭 → 수정 화면 진입 + 데이터 프리필",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1189,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:56.251Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-a89235321b5bd85ed232",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 157,
+              "column": 7
+            },
+            {
+              "title": "MC-07-01: 제목 수정 후 저장 → 목록에 반영",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1306,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:57.449Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-c476bfed9487553428b3",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 166,
+              "column": 7
+            },
+            {
+              "title": "EC-07-03: 제목 공란으로 수정 시도 → 에러 메시지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1291,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:26:58.765Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-173b9c07178f421d1efd",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 180,
+              "column": 7
+            },
+            {
+              "title": "AC-07-01: 수정 취소 → 목록으로 복귀, 변경 미반영",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1275,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:27:00.066Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-3cea38a99ac86150555b",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 192,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "UC-08 할일 완료 처리",
+          "file": "uc05-09-todos.spec.ts",
+          "line": 205,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-08-01: 체크박스 클릭 → 완료 처리 (취소선 적용)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1648,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:27:01.350Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-ff398e812e304732c74c",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 219,
+              "column": 7
+            },
+            {
+              "title": "MC-08-02: 완료 상태 재클릭 → 완료 취소 (취소선 제거)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2174,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:27:03.008Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-15a30914c7cc00e3eea6",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 228,
+              "column": 7
+            }
+          ]
+        },
+        {
+          "title": "UC-09 할일 삭제",
+          "file": "uc05-09-todos.spec.ts",
+          "line": 243,
+          "column": 6,
+          "specs": [
+            {
+              "title": "MC-09-01: 삭제 버튼 → 확인 모달 → 삭제 → 목록에서 제거",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1295,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:27:05.195Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-d914d03a0d58e029475c",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 257,
+              "column": 7
+            },
+            {
+              "title": "AC-09-01: 삭제 확인 모달에서 취소 → 할일 유지",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1257,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:27:06.499Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-d9bf8ae59d2618bc1c0d",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 276,
+              "column": 7
+            },
+            {
+              "title": "EC-07-02: 존재하지 않는 할일 수정 → 에러 메시지",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11128,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('할일을 찾을 수 없습니다.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('할일을 찾을 수 없습니다.')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('할일을 찾을 수 없습니다.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('할일을 찾을 수 없습니다.')\u001b[22m\n\n    at C:\\_vibe\\todolist-app\\test\\e2e\\specs\\uc05-09-todos.spec.ts:289:52",
+                        "location": {
+                          "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\uc05-09-todos.spec.ts",
+                          "column": 52,
+                          "line": 289
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 287 |\u001b[39m   test(\u001b[32m'EC-07-02: 존재하지 않는 할일 수정 → 에러 메시지'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\n \u001b[90m 288 |\u001b[39m     \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'/todos/99999/edit'\u001b[39m)\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 289 |\u001b[39m     \u001b[36mawait\u001b[39m expect(page\u001b[33m.\u001b[39mgetByText(\u001b[32m'할일을 찾을 수 없습니다.'\u001b[39m))\u001b[33m.\u001b[39mtoBeVisible()\n \u001b[90m     |\u001b[39m                                                    \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 290 |\u001b[39m   })\n \u001b[90m 291 |\u001b[39m })\n \u001b[90m 292 |\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\uc05-09-todos.spec.ts",
+                            "column": 52,
+                            "line": 289
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: getByText('할일을 찾을 수 없습니다.')\nExpected: visible\nTimeout: 10000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for getByText('할일을 찾을 수 없습니다.')\u001b[22m\n\n\n  287 |   test('EC-07-02: 존재하지 않는 할일 수정 → 에러 메시지', async ({ page }) => {\n  288 |     await page.goto('/todos/99999/edit')\n> 289 |     await expect(page.getByText('할일을 찾을 수 없습니다.')).toBeVisible()\n      |                                                    ^\n  290 |   })\n  291 | })\n  292 |\n    at C:\\_vibe\\todolist-app\\test\\e2e\\specs\\uc05-09-todos.spec.ts:289:52"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-05-15T01:27:07.765Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\uc05-09-todos-UC-09-할일-삭제-EC-07-02-존재하지-않는-할일-수정-→-에러-메시지-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\_vibe\\todolist-app\\test\\e2e\\results\\artifacts\\uc05-09-todos-UC-09-할일-삭제-EC-07-02-존재하지-않는-할일-수정-→-에러-메시지-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\_vibe\\todolist-app\\test\\e2e\\specs\\uc05-09-todos.spec.ts",
+                        "column": 52,
+                        "line": 289
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "a51c206561df97bb6b02-f958da579cd51a3975c7",
+              "file": "uc05-09-todos.spec.ts",
+              "line": 287,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-15T01:26:05.870Z",
+    "duration": 73137.144,
+    "expected": 36,
+    "skipped": 0,
+    "unexpected": 3,
+    "flaky": 0
+  }
+}

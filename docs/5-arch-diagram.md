@@ -162,6 +162,8 @@ flowchart LR
 - **Zustand (클라이언트 상태):** 로그인 사용자, UI 전역 상태 (다크모드, 모달)
 - **컴포넌트:** 순수 렌더링, Props 기반 동작 (상태 관리 최소화)
 
+> **클라이언트 사이드 필터링:** `due_date_from` / `due_date_to` 범위 필터는 백엔드 API 파라미터를 사용하지 않고 TanStack Query 캐시 데이터를 컴포넌트에서 직접 필터링합니다. `category_id`, `is_completed`, `overdue`는 백엔드 쿼리 파라미터로 전달됩니다.
+
 ---
 
 ## 5. 데이터 모델 관계도
@@ -232,3 +234,4 @@ erDiagram
 |------|------|--------|-----------|
 | 1.0 | 2026-05-13 | Documentation Engineer | 최초 작성 - 4개 다이어그램 포함 |
 | 1.1 | 2026-05-14 | Backend Developer | 기술 스택 요약 표에 morgan·winston·swagger-ui-express·Jest+supertest 추가 |
+| 1.2 | 2026-05-14 | Frontend Developer | §4 상태 관리 전략에 클라이언트 사이드 날짜 범위 필터링 설명 추가 |

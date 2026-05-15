@@ -23,5 +23,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   setUser: (user) => set({ user }),
   setToken: (token) => set({ token }),
   setLoading: (loading) => set({ isLoading: loading }),
-  logout: () => set({ user: null, token: null }),
+  logout: () => {
+    import('./useThemeStore').then(({ useThemeStore }) => useThemeStore.getState().clearTheme())
+    set({ user: null, token: null })
+  },
 }))

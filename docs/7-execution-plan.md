@@ -374,11 +374,14 @@
 - [x] `useTodoMutations()`: `completeTodo`를 `useMutation`으로 구현하며, 성공 시 `queryClient.invalidateQueries(['todos'])`를 호출한다
 
 **할일 목록 화면** (`pages/TodoListPage.tsx`):
-- [x] 필터 패널에 카테고리·완료여부·기간초과 필터가 존재한다
+- [x] 필터 패널에 카테고리·완료여부·종료예정일 범위(시작~종료)·기간초과 필터가 존재한다
+- [x] 종료예정일 범위 필터 기본값은 현재일 기준 −20일 ~ +20일이다
+- [x] 종료예정일 범위 필터는 클라이언트 사이드에서 적용된다 (due_date 없는 할일은 필터 통과)
 - [x] 필터 변경 시 목록이 즉시 갱신된다
 - [x] 각 할일 카드에 제목·카테고리 태그·종료예정일이 표시된다
 - [x] 기간 초과 할일의 종료예정일은 붉은색으로 강조 표시된다
 - [x] 완료 체크박스 클릭 시 `completeTodo` API가 호출되고 목록이 갱신된다
+- [x] 할일 카드 클릭 시 `/todos/:id/edit`으로 이동한다 (체크박스 클릭은 전파 차단)
 - [x] 할일이 없을 경우 빈 상태 메시지가 표시된다
 - [x] 헤더에 로그인 사용자 이름과 로그아웃 버튼이 표시된다
 - [x] 로그아웃 클릭 시 `useAuthStore.logout()`이 호출되고 `/login`으로 이동한다
@@ -424,7 +427,7 @@
 **할일 수정 화면** (`pages/TodoEditPage.tsx`):
 - [x] 기존 할일 데이터가 폼에 미리 채워진다
 - [x] 수정 후 저장 성공 시 할일 목록 화면으로 이동한다
-- [x] 삭제 버튼 클릭 시 확인 다이얼로그 후 삭제 API가 호출된다
+- [x] 삭제 버튼은 폼 하단 버튼 영역(삭제·취소·저장)에 위치하며, 클릭 시 확인 모달 후 삭제 API가 호출된다
 - [x] 삭제 성공 시 할일 목록 화면으로 이동한다
 - [x] 존재하지 않는 할일 ID 접근 시 에러 메시지를 표시하거나 목록으로 리다이렉트한다
 
@@ -489,6 +492,7 @@
 **필터링 흐름**:
 - [x] 카테고리 필터 선택 시 해당 카테고리 할일만 표시된다
 - [x] 완료 여부 필터 선택 시 해당 상태 할일만 표시된다
+- [x] 종료예정일 범위 필터 변경 시 해당 기간 내 할일만 표시된다 (클라이언트 사이드)
 - [x] 기간 초과 필터 선택 시 오늘 이전 `due_date`를 가진 미완료 할일만 표시된다
 
 **보안 검증**:
@@ -554,3 +558,4 @@
 | 1.4 | 2026-05-14 | Frontend Developer | FE-02 완료 조건 전체 체크. PrivateRoute/PublicOnlyRoute 라우터 보호 구현, 5개 Page 스텁 컴포넌트 생성, Vitest 테스트 환경 설정(jsdom), useAuthStore 7개·AppRouter 10개 총 17개 테스트 통과 |
 | 1.5 | 2026-05-14 | Frontend Developer | FE-03 완료 조건 전체 체크. apiFetch 공통 래퍼(api/client.ts), auth.api.ts, useAuthMutation 훅, LoginPage·RegisterPage TailwindCSS 구현(필드 유효성·에러 표시·로딩 버튼), auth.api 5개·LoginPage 6개·RegisterPage 7개 총 35개 테스트 통과 |
 | 1.6 | 2026-05-14 | Frontend Developer | FE-04~FE-07 완료 조건 전체 체크. todos/categories API 클라이언트, useTodos·useTodoMutations·useCategories 훅, TodoListPage·TodoCard·TodoFilter 구현, TodoCreatePage·TodoEditPage 등록/수정/삭제 폼, Button·Input·Select·Modal·AppLayout·Header 공통 컴포넌트, MSW v2 통합 테스트(auth/todos/responsive 28개 시나리오) 작성. 전체 153개 테스트 통과 |
+| 1.7 | 2026-05-14 | Frontend Developer | FE-04 TodoFilters에 `due_date_from`·`due_date_to` 범위 필터 추가(현재일 ±20일 기본값, 클라이언트 사이드 적용). TodoCard에 `onEdit` prop 추가 및 카드 전체 클릭 → 수정 화면 이동 구현. TodoEditPage 삭제 버튼을 헤더 아이콘에서 폼 하단 버튼 영역으로 이동. MSW 핸들러 날짜 동적 생성으로 수정. 전체 163개 테스트 통과 |

@@ -106,8 +106,8 @@ export interface Todo {
   user_id: number;
   category_id: number;
   title: string;
-  description: string | null;
-  due_date: string | null;      // "YYYY-MM-DD" 문자열. Date 객체 아님
+  description?: string;
+  due_date?: string;            // "YYYY-MM-DD" 문자열. Date 객체 아님
   is_completed: boolean;
   created_at: string;           // ISO 8601
   updated_at: string;           // ISO 8601
@@ -116,21 +116,23 @@ export interface Todo {
 export interface CreateTodoPayload {
   title: string;
   category_id: number;
-  description?: string | null;
-  due_date?: string | null;     // "YYYY-MM-DD" 형식만 허용
+  description?: string;
+  due_date?: string;            // "YYYY-MM-DD" 형식만 허용
 }
 
 export interface UpdateTodoPayload {
   title: string;
   category_id: number;
-  description?: string | null;
-  due_date?: string | null;
+  description?: string;
+  due_date?: string;
 }
 
 export interface TodoFilters {
   category_id?: number;
   is_completed?: boolean;
   overdue?: boolean;
+  due_date_from?: string;   // "YYYY-MM-DD" 클라이언트 사이드 범위 필터 시작일
+  due_date_to?: string;     // "YYYY-MM-DD" 클라이언트 사이드 범위 필터 종료일
 }
 
 // types/api.types.ts
@@ -603,7 +605,25 @@ export function isOverdue(dueDate: string | null, isCompleted: boolean): boolean
 }
 ```
 
-### 9.2 due_date 날짜 입력 처리
+### 9.2 종료예정일 범위 필터 (클라이언트 사이드)
+
+`TodoFilters`의 `due_date_from` / `due_date_to`는 백엔드에 쿼리 파라미터로 전달하지 않고 **클라이언트 사이드**에서 필터링합니다. 백엔드가 해당 파라미터를 지원하지 않기 때문입니다.
+
+```typescript
+// pages/TodoListPage.tsx — 클라이언트 사이드 날짜 범위 필터
+const { data: rawTodos = [] } = useTodos(filters)    // due_date_from/to는 API로 미전송
+const todos = rawTodos.filter((t) => {
+  if (t.due_date) {
+    if (filters.due_date_from && t.due_date < filters.due_date_from) return false
+    if (filters.due_date_to && t.due_date > filters.due_date_to) return false
+  }
+  return true    // due_date 없는 할일은 필터 통과
+})
+```
+
+**기본값:** 초기 로드 시 현재일 기준 −20일 ~ +20일로 자동 설정됩니다.
+
+### 9.2b due_date 날짜 입력 처리
 
 `<input type="date">` 의 `value`는 `"YYYY-MM-DD"` 형식입니다. 백엔드도 동일한 형식을 기대하므로 변환 없이 그대로 전달합니다.
 
@@ -615,15 +635,39 @@ const payload = { title, category_id, due_date: dateInput || null };
 const payload = { due_date: new Date(dateInput).toISOString() };
 ```
 
-### 9.3 완료 토글 응답
+### 9.3 TodoCard 클릭 → 수정 화면 이동
+
+`TodoCard`는 카드 전체가 클릭 가능하며(`cursor-pointer`), 클릭 시 `onEdit(id)` 콜백을 호출합니다. 체크박스 클릭은 이벤트 전파를 막아 토글만 실행됩니다.
+
+```typescript
+// features/todos/components/TodoCard.tsx
+interface TodoCardProps {
+  todo: Todo
+  category?: Category
+  onToggle: (id: number) => void
+  onEdit: (id: number) => void    // 카드 클릭 시 호출 (수정 화면 이동)
+}
+```
+
+```tsx
+// pages/TodoListPage.tsx — onEdit 핸들러
+<TodoCard
+  todo={todo}
+  category={categories.find((c) => c.id === todo.category_id)}
+  onToggle={(id) => toggleMutation.mutate(id)}
+  onEdit={(id) => navigate(`/todos/${id}/edit`)}
+/>
+```
+
+### 9.5 완료 토글 응답
 
 `PATCH /api/todos/:id/complete` 응답은 변경된 `is_completed` 값이 포함된 `Todo` 전체 객체를 반환합니다. 별도로 목록을 재요청하지 않아도 되지만, `invalidateQueries`를 통해 캐시를 갱신하는 것이 권장됩니다.
 
-### 9.4 빈 목록 처리
+### 9.6 빈 목록 처리
 
 `GET /api/todos` 는 할일이 없어도 `{ data: [] }`를 반환합니다 (404 아님). 빈 배열에 대해 빈 상태 UI를 표시하세요.
 
-### 9.5 로그아웃 처리
+### 9.7 로그아웃 처리
 
 ```typescript
 // 로그아웃 버튼 핸들러
@@ -651,41 +695,44 @@ VITE_API_BASE_URL=           # 프로덕션 배포 시만 설정. 개발 시는 
 
 ### 인증 (FE-03)
 
-- [ ] `POST /api/auth/register` 호출 후 `201` 응답 수신, `/login`으로 이동
-- [ ] `POST /api/auth/login` 호출 후 `access_token`을 Zustand 메모리에만 저장
-- [ ] `localStorage`에 토큰을 저장하는 코드 없음
-- [ ] 로그인 성공 후 `/todos`로 이동
-- [ ] `401` 응답 시 `logout()` 호출 후 `/login`으로 이동
-- [ ] 페이지 새로고침 시 `/login`으로 리다이렉트됨 (토큰 메모리 초기화 확인)
+- [x] `POST /api/auth/register` 호출 후 `201` 응답 수신, `/login`으로 이동
+- [x] `POST /api/auth/login` 호출 후 `access_token`을 Zustand 메모리에만 저장
+- [x] `localStorage`에 토큰을 저장하는 코드 없음
+- [x] 로그인 성공 후 `/todos`로 이동
+- [x] `401` 응답 시 `logout()` 호출 후 `/login`으로 이동
+- [x] 페이지 새로고침 시 `/login`으로 리다이렉트됨 (토큰 메모리 초기화 확인)
 
 ### 할일 목록 (FE-04)
 
-- [ ] `GET /api/todos` 에 `Authorization: Bearer <token>` 헤더 포함
-- [ ] `category_id`, `is_completed`, `overdue` 필터 파라미터 정상 동작
-- [ ] 기간 초과 할일 빨간색 강조 표시
-- [ ] 빈 목록 시 빈 상태 메시지 표시
-- [ ] `PATCH /api/todos/:id/complete` 호출 후 목록 캐시 갱신
+- [x] `GET /api/todos` 에 `Authorization: Bearer <token>` 헤더 포함
+- [x] `category_id`, `is_completed`, `overdue` 필터 파라미터 정상 동작
+- [x] 종료예정일 범위(`due_date_from` ~ `due_date_to`) 클라이언트 사이드 필터링 동작, 기본값 현재일 ±20일
+- [x] 기간 초과 할일 빨간색 강조 표시
+- [x] 빈 목록 시 빈 상태 메시지 표시
+- [x] `PATCH /api/todos/:id/complete` 호출 후 목록 캐시 갱신
+- [x] 할일 카드 클릭 시 `/todos/:id/edit`으로 이동 (체크박스 클릭은 이벤트 전파 차단)
 
 ### 할일 등록·수정 (FE-05)
 
-- [ ] `POST /api/todos` 에 `title`과 `category_id` 필수 전송
-- [ ] `due_date`는 `"YYYY-MM-DD"` 형식 문자열로 전송
-- [ ] `PUT /api/todos/:id` 에 `title`과 `category_id` 필수 전송
-- [ ] `DELETE /api/todos/:id` 후 `204` 확인, 목록 캐시 갱신
-- [ ] 수정 폼에 기존 할일 데이터 프리필됨
+- [x] `POST /api/todos` 에 `title`과 `category_id` 필수 전송
+- [x] `due_date`는 `"YYYY-MM-DD"` 형식 문자열로 전송
+- [x] `PUT /api/todos/:id` 에 `title`과 `category_id` 필수 전송
+- [x] `DELETE /api/todos/:id` 후 `204` 확인, 목록 캐시 갱신
+- [x] 수정 폼에 기존 할일 데이터 프리필됨
+- [x] 삭제 버튼은 폼 하단 버튼 영역(삭제·취소·저장)에 위치, 클릭 시 확인 모달 표시
 
 ### 카테고리 (FE-04)
 
-- [ ] `GET /api/categories` 에 `Authorization` 헤더 포함
-- [ ] 기본 카테고리(업무·개인·쇼핑·기타)가 드롭다운 상단에 표시됨
-- [ ] `is_default: true` 카테고리는 삭제 UI 미노출
+- [x] `GET /api/categories` 에 `Authorization` 헤더 포함
+- [x] 기본 카테고리(업무·개인·쇼핑·기타)가 드롭다운 상단에 표시됨
+- [x] `is_default: true` 카테고리는 삭제 UI 미노출
 
 ### 보안
 
-- [ ] 비인증 상태에서 `/todos` 접근 시 `/login`으로 리다이렉트
-- [ ] 인증된 상태에서 `/login`, `/register` 접근 시 `/todos`로 리다이렉트
-- [ ] 모든 보호 API 호출에 토큰 포함 여부 확인
-- [ ] `localStorage`에 토큰 없음 확인 (브라우저 개발자 도구)
+- [x] 비인증 상태에서 `/todos` 접근 시 `/login`으로 리다이렉트
+- [x] 인증된 상태에서 `/login`, `/register` 접근 시 `/todos`로 리다이렉트
+- [x] 모든 보호 API 호출에 토큰 포함 여부 확인
+- [x] `localStorage`에 토큰 없음 확인 (브라우저 개발자 도구)
 
 ---
 
@@ -694,3 +741,4 @@ VITE_API_BASE_URL=           # 프로덕션 배포 시만 설정. 개발 시는 
 | 버전 | 날짜 | 변경자 | 변경 내용 |
 |------|------|--------|-----------|
 | 1.0 | 2026-05-14 | Backend Developer | 초기 작성 — 백엔드 BE-01~BE-07 완료 후 FE 연동 기준으로 작성 |
+| 1.1 | 2026-05-14 | Frontend Developer | §3 TodoFilters에 `due_date_from`·`due_date_to` 추가, Todo 타입 nullable → optional 변경. §9 종료예정일 범위 클라이언트 사이드 필터링·TodoCard onEdit 섹션 추가. §11 체크리스트 완료 처리 및 항목 보완 |

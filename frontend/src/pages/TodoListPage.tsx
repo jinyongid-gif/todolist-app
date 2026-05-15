@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Plus, LogOut, ClipboardList, Loader2 } from 'lucide-react'
+import { Plus, LogOut, ClipboardList, Loader2, Moon, Sun } from 'lucide-react'
 import { useQueryClient } from '@tanstack/react-query'
 import { useAuthStore } from '../stores/useAuthStore'
+import { useThemeStore } from '../stores/useThemeStore'
 import { useTodos } from '../features/todos/hooks/useTodos'
 import { useTodoMutations } from '../features/todos/hooks/useTodoMutations'
 import { useCategories } from '../features/categories/hooks/useCategories'
@@ -14,13 +15,9 @@ export default function TodoListPage() {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
   const user = useAuthStore((s) => s.user)
-  const [filters, setFilters] = useState<TodoFilters>(() => {
-    const today = new Date()
-    const pad = (d: Date) => d.toISOString().slice(0, 10)
-    const from = new Date(today); from.setDate(today.getDate() - 20)
-    const to = new Date(today); to.setDate(today.getDate() + 20)
-    return { due_date_from: pad(from), due_date_to: pad(to) }
-  })
+  const isDark = useThemeStore((s) => s.isDark)
+  const toggle = useThemeStore((s) => s.toggle)
+  const [filters, setFilters] = useState<TodoFilters>({})
 
   const { data: rawTodos = [], isLoading: todosLoading } = useTodos(filters)
   const { data: categories = [] } = useCategories()
@@ -41,15 +38,22 @@ export default function TodoListPage() {
   }
 
   return (
-    <div data-testid="todo-list-page" className="min-h-screen bg-neutral-100">
-      <header className="sticky top-0 z-50 bg-white shadow-sm h-[60px] flex items-center px-4 md:px-6">
+    <div data-testid="todo-list-page" className="min-h-screen bg-neutral-100 dark:bg-neutral-900">
+      <header className="sticky top-0 z-50 bg-white dark:bg-neutral-800 shadow-sm h-[60px] flex items-center px-4 md:px-6">
         <div className="w-full max-w-[1200px] mx-auto flex items-center justify-between">
           <span className="text-xl font-bold text-primary-700">TodoList</span>
           <div className="flex items-center gap-3">
-            {user && <span className="text-sm text-neutral-700">{user.name}</span>}
+            {user && <span className="text-sm text-neutral-700 dark:text-neutral-300">{user.name}</span>}
+            <button
+              onClick={() => user && toggle(user.id)}
+              className="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
+              aria-label={isDark ? '라이트 모드로 전환' : '다크 모드로 전환'}
+            >
+              {isDark ? <Sun size={18} strokeWidth={1.5} /> : <Moon size={18} strokeWidth={1.5} />}
+            </button>
             <button
               onClick={handleLogout}
-              className="flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-900 transition-colors"
+              className="flex items-center gap-1.5 text-sm text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
               aria-label="로그아웃"
             >
               <LogOut size={18} strokeWidth={1.5} />
@@ -73,8 +77,8 @@ export default function TodoListPage() {
             </div>
           ) : todos.length === 0 ? (
             <div className="flex flex-col items-center justify-center min-h-[240px] gap-3">
-              <ClipboardList size={64} className="text-neutral-300" strokeWidth={1.5} />
-              <p className="text-lg text-neutral-500">할일이 없습니다</p>
+              <ClipboardList size={64} className="text-neutral-300 dark:text-neutral-500" strokeWidth={1.5} />
+              <p className="text-lg text-neutral-500 dark:text-neutral-400">할일이 없습니다</p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -94,7 +98,7 @@ export default function TodoListPage() {
 
       <button
         onClick={() => navigate('/todos/create')}
-        className="fixed bottom-6 right-6 bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-colors"
+        className="fixed bottom-20 right-6 bg-primary-600 hover:bg-primary-700 text-white rounded-full p-4 shadow-lg transition-colors"
         aria-label="새 할일 추가"
       >
         <Plus size={24} strokeWidth={1.5} />

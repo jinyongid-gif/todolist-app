@@ -32,16 +32,16 @@ export default function LoginPage() {
   }
 
   return (
-    <div data-testid="login-page" className="min-h-screen bg-neutral-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-[400px] bg-white rounded-2xl shadow-lg p-8">
+    <div data-testid="login-page" className="min-h-screen bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center px-4">
+      <div className="w-full max-w-[400px] bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-neutral-900">TodoList</h1>
-          <p className="text-sm text-neutral-500 mt-1">로그인하여 할일을 관리하세요</p>
+          <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">TodoList</h1>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">로그인하여 할일을 관리하세요</p>
         </div>
 
         <form onSubmit={handleSubmit} noValidate className="space-y-4">
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
               이메일
             </label>
             <input
@@ -50,9 +50,9 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="name@example.com"
-              className={`w-full h-10 px-3 py-2 text-base text-neutral-900 bg-white border rounded-lg outline-none transition-colors
-                placeholder:text-neutral-400
-                ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-primary-500'}
+              className={`w-full h-10 px-3 py-2 text-base text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 border rounded-lg outline-none transition-colors
+                placeholder:text-neutral-400 dark:placeholder:text-neutral-500
+                ${errors.email ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 dark:border-neutral-600 focus:border-primary-500'}
                 focus:shadow-focus`}
             />
             {errors.email && (
@@ -61,7 +61,7 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-neutral-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1">
               비밀번호
             </label>
             <input
@@ -70,9 +70,9 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호 입력"
-              className={`w-full h-10 px-3 py-2 text-base text-neutral-900 bg-white border rounded-lg outline-none transition-colors
-                placeholder:text-neutral-400
-                ${errors.password ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 focus:border-primary-500'}
+              className={`w-full h-10 px-3 py-2 text-base text-neutral-900 dark:text-white bg-white dark:bg-neutral-800 border rounded-lg outline-none transition-colors
+                placeholder:text-neutral-400 dark:placeholder:text-neutral-500
+                ${errors.password ? 'border-red-500 focus:border-red-500' : 'border-neutral-300 dark:border-neutral-600 focus:border-primary-500'}
                 focus:shadow-focus`}
             />
             {errors.password && (
@@ -81,7 +81,7 @@ export default function LoginPage() {
           </div>
 
           {errors.form && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+            <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 rounded-lg">
               <p className="text-sm text-red-600" role="alert">{errors.form}</p>
             </div>
           )}
@@ -100,7 +100,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <p className="text-center text-sm text-neutral-500 mt-6">
+        <p className="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-6">
           계정이 없으신가요?{' '}
           <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">
             회원가입

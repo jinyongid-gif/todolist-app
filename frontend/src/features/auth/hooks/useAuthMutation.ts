@@ -2,6 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { register, login } from '../../../api/auth.api'
 import { useAuthStore } from '../../../stores/useAuthStore'
+import { useThemeStore } from '../../../stores/useThemeStore'
 
 export function useRegisterMutation() {
   const navigate = useNavigate()
@@ -19,6 +20,7 @@ export function useLoginMutation() {
     onSuccess: (data) => {
       setToken(data.access_token)
       setUser(data.user)
+      useThemeStore.getState().loadForUser(data.user.id)
       navigate('/todos')
     },
   })
