@@ -35,7 +35,7 @@ export default function LoginPage() {
     <div data-testid="login-page" className="min-h-screen bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center px-4">
       <div className="w-full max-w-[400px] bg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-8">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">TodoList</h1>
+          <h1 className="text-2xl font-bold text-neutral-900 dark:text-white">할일목록</h1>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-1">로그인하여 할일을 관리하세요</p>
         </div>
 
